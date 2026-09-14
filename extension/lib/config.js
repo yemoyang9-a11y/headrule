@@ -5,8 +5,8 @@
 export const CONFIG = {
   productName: "Headrule",
   version: "1.0.0",
-  siteUrl: "https://headrule.dev",
-  buyUrl: "https://headrule.lemonsqueezy.com/buy/REPLACE_WITH_CHECKOUT_ID",
+  siteUrl: "https://yemoyang9-a11y.github.io/headrule",
+  buyUrl: "https://headrule.lemonsqueezy.com",
   supportEmail: "yemoyang9@gmail.com",
   lemonSqueezy: {
     apiBase: "https://api.lemonsqueezy.com/v1/licenses",

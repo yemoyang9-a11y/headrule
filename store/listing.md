@@ -40,7 +40,7 @@ WORKS WITH
 Chrome, Edge, Brave, Arc and other Chromium browsers.
 
 SUPPORT
-yemoyang9@gmail.com · Privacy policy: https://headrule.dev/privacy.html
+yemoyang9@gmail.com · Privacy policy: https://yemoyang9-a11y.github.io/headrule/privacy.html
 
 Headrule is an independent project and is not affiliated with Google or with ModHeader.
 
@@ -63,7 +63,7 @@ Headrule lets the user define rules that add, modify or remove HTTP request and 
 
 **Data usage**: Check none of the data-collection boxes. Certify all three statements (no sale, no unrelated use, no creditworthiness use).
 
-**Privacy policy URL**: https://headrule.dev/privacy.html
+**Privacy policy URL**: https://yemoyang9-a11y.github.io/headrule/privacy.html
 
 ## Distribution
 Visibility: Public · Regions: All regions · Pricing: Free (Pro is sold outside the store via Lemon Squeezy; this is allowed as long as the listing says so)
