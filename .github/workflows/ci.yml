@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright (Chromium)
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Smoke test (real Chromium + declarativeNetRequest)
+        run: npm test
+      - name: Build zip
+        run: npm run zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: headrule-zip
+          path: dist/*.zip

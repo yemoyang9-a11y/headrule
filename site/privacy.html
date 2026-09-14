@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Headrule privacy policy</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root { --bg:#fff; --fg:#1f2328; --muted:#57606a; --border:#d0d7de; --accent:#1f6feb; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0d1117; --fg:#e6edf3; --muted:#9da7b3; --border:#30363d; --accent:#388bfd; } }
+    body { margin:0; font:16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--fg); background:var(--bg); }
+    .wrap { max-width:760px; margin:0 auto; padding:40px 20px 60px; }
+    h1 { font-size:30px; margin:0 0 6px; } h2 { font-size:20px; margin:28px 0 8px; }
+    p, li { color:var(--fg); } .muted { color:var(--muted); } a { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Headrule privacy policy</h1>
+    <p class="muted">Last updated: September 13, 2026</p>
+
+    <h2>Summary</h2>
+    <p>Headrule does not collect, store, transmit or sell any personal data or browsing data. It has no analytics, no telemetry and no crash reporting.</p>
+
+    <h2>What the extension does</h2>
+    <p>Headrule lets you define rules that add, set or remove HTTP request and response headers. Those rules are handed to Chrome's <em>declarativeNetRequest</em> API, which applies them inside the browser. Headrule does not use content scripts and cannot read the pages you visit.</p>
+
+    <h2>Data stored on your device</h2>
+    <ul>
+      <li>Your profiles and rules, in the browser's extension storage (<code>chrome.storage.local</code>).</li>
+      <li>If you enable sync (Pro), the same profiles in <code>chrome.storage.sync</code>, which Google synchronises between your signed-in Chrome browsers under Google's own privacy policy.</li>
+      <li>If you activate Pro, your license key, an instance identifier and the email address returned by the license server, so the extension can show which license is active.</li>
+    </ul>
+
+    <h2>Network requests</h2>
+    <p>The only network request Headrule makes on its own is to the license server operated by Lemon Squeezy (<code>api.lemonsqueezy.com</code>) when you activate, re-validate (about once a week) or deactivate a Pro license. That request contains the license key and a device label such as "Headrule on macOS". No browsing data is included. Lemon Squeezy's privacy policy applies to the purchase itself.</p>
+
+    <h2>Permissions</h2>
+    <ul>
+      <li><strong>Read and change all your data on all websites</strong> (host permission): required so a rule with an empty URL filter can apply to every request. Headrule uses it only to register your rules with Chrome.</li>
+      <li><strong>declarativeNetRequest</strong>: the API that modifies headers.</li>
+      <li><strong>storage</strong>: to save your rules.</li>
+      <li><strong>alarms</strong>: to schedule the weekly license re-check.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>Headrule is a developer tool and is not directed at children under 13.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the new version is published at this address with an updated date. The extension will never start collecting data without an explicit, visible change to this page and the store listing.</p>
+
+    <h2>Contact</h2>
+    <p><a href="mailto:yemoyang9@gmail.com">yemoyang9@gmail.com</a></p>
+  </div>
+</body>
+</html>

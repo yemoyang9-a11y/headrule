@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Headrule – Modify HTTP request and response headers in Chrome (ModHeader alternative)</title>
+  <meta name="description" content="Headrule is a lightweight Chrome extension to add, set, or remove HTTP request and response headers per URL. No accounts, no tracking, no remote code. A clean ModHeader alternative with profiles and import." />
+  <link rel="canonical" href="https://headrule.dev/" />
+  <meta property="og:title" content="Headrule – Modify HTTP headers in Chrome" />
+  <meta property="og:description" content="Set, append or remove request and response headers per URL. No accounts, no tracking. Import your ModHeader profiles." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://headrule.dev/" />
+  <meta property="og:image" content="https://headrule.dev/og.png" />
+  <link rel="icon" href="icon-128.png" type="image/png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Headrule",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Chrome",
+    "offers": [
+      {"@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free"},
+      {"@type": "Offer", "price": "9", "priceCurrency": "USD", "name": "Pro (one-time)"}
+    ],
+    "description": "Chrome extension to modify HTTP request and response headers per URL. ModHeader alternative with profiles, import/export and no tracking."
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #ffffff; --bg2: #f6f8fa; --fg: #1f2328; --muted: #57606a; --border: #d0d7de;
+      --accent: #1f6feb; --accent-fg: #fff; --card: #ffffff; --code: #eef1f5;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
+        --accent: #388bfd; --accent-fg: #fff; --card: #161b22; --code: #1f2630;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--fg); background: var(--bg); }
+    a { color: var(--accent); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; color: var(--fg); }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; }
+    nav a { margin-left: 18px; text-decoration: none; color: var(--muted); font-size: 15px; }
+    nav a:hover { color: var(--fg); }
+    .hero { padding: 56px 0 40px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+    .hero h1 { font-size: 40px; line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.02em; }
+    .hero p.lead { font-size: 19px; color: var(--muted); margin: 0 0 24px; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-fg); padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px; }
+    .cta.secondary { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+    .cta + .cta { margin-left: 10px; }
+    .hero img.shot { width: 100%; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+    .badges { margin-top: 14px; color: var(--muted); font-size: 14px; }
+    section { padding: 40px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: 26px; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .sub { color: var(--muted); margin: 0 0 24px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .card h3 { margin: 0 0 6px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; }
+    code { background: var(--code); padding: 2px 6px; border-radius: 5px; }
+    pre { background: var(--code); padding: 14px 16px; border-radius: 10px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-size: 14px; color: var(--muted); font-weight: 600; }
+    .pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .price { font-size: 34px; font-weight: 700; margin: 6px 0 2px; }
+    .price small { font-size: 14px; color: var(--muted); font-weight: 400; }
+    ul.feat { padding-left: 18px; margin: 12px 0 18px; color: var(--muted); }
+    details { border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; margin-bottom: 10px; background: var(--card); }
+    summary { cursor: pointer; font-weight: 600; }
+    details p { color: var(--muted); margin: 8px 0 4px; }
+    footer { padding: 30px 0 50px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; padding-top: 30px; }
+      .hero h1 { font-size: 32px; }
+      .grid, .pricing { grid-template-columns: 1fr; }
+      nav a { margin-left: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="/"><img src="icon-128.png" alt="" /> Headrule</a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#modheader">Switching</a>
+        <a href="#help">Help</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+    </header>
+
+    <section class="hero" style="border-top:0">
+      <div>
+        <h1>Modify HTTP headers in Chrome. Nothing else.</h1>
+        <p class="lead">Add, set or remove request and response headers for any URL. Rules apply instantly. No account, no analytics, no remote code. Your ModHeader profiles import in one click.</p>
+        <a class="cta" id="installLink" href="https://chromewebstore.google.com/detail/REPLACE_WITH_EXTENSION_ID" rel="noopener">Add to Chrome, it's free</a>
+        <a class="cta secondary" href="#pricing">Pro is $9, once</a>
+        <p class="badges">Manifest V3 · Built on declarativeNetRequest · Works with Chrome, Edge, Brave and Arc</p>
+      </div>
+      <img class="shot" src="screenshot-popup.png" alt="Headrule popup showing request and response header rules" width="680" height="262" />
+    </section>
+
+    <section id="features">
+      <h2>Made for the daily grind of API and frontend work</h2>
+      <p class="sub">The six things people actually use a header extension for, done properly.</p>
+      <div class="grid">
+        <div class="card"><h3>Set, append, remove</h3><p>Any request or response header. Authorization tokens, custom feature flags, User-Agent, Referer, CORS headers during local development.</p></div>
+        <div class="card"><h3>Scope rules to URLs</h3><p>Leave the filter empty for everywhere, use <code>||api.example.com</code> for one domain, or a regular expression when you need precision.</p></div>
+        <div class="card"><h3>Instant, no reload</h3><p>Rules are handed to Chrome's native request engine the moment you type. No page refresh, no background script watching your traffic.</p></div>
+        <div class="card"><h3>Profiles</h3><p>Staging, production, client A, CORS debugging. Switch with one click. The toolbar badge shows how many rules are live.</p></div>
+        <div class="card"><h3>One switch to pause</h3><p>Flip the toggle or press <code>Alt+Shift+H</code> and every rule is removed until you turn it back on.</p></div>
+        <div class="card"><h3>Private by design</h3><p>Headrule cannot read page content. It never contacts a server except the license check when you activate Pro. The source is public for audit.</p></div>
+      </div>
+    </section>
+
+    <section id="modheader">
+      <h2>Switching from ModHeader</h2>
+      <p class="sub">ModHeader was removed from the Chrome and Edge stores in July 2026 after researchers found undisclosed data collection. Headrule is a clean replacement built by an independent developer.</p>
+      <ol>
+        <li>If you still have ModHeader installed, open it and export your profiles as JSON. If it is already gone, your rules are unfortunately gone with it.</li>
+        <li>Install Headrule, open <strong>Options → Import profiles</strong>, and pick the file. Request and response headers, enabled states and comments carry over. (Import is a Pro feature; the free tier lets you recreate rules by hand.)</li>
+        <li>Pick the profile in the popup. Done.</li>
+      </ol>
+    </section>
+
+    <section id="help">
+      <h2>Help</h2>
+      <p class="sub">Everything the popup does not explain by itself.</p>
+      <h3>URL filter syntax</h3>
+      <table>
+        <tr><th>Filter</th><th>Matches</th></tr>
+        <tr><td><em>(empty)</em></td><td>Every request in every tab</td></tr>
+        <tr><td><code>example.com</code></td><td>Any URL containing that text</td></tr>
+        <tr><td><code>||api.example.com</code></td><td>That host and its subdomains, any scheme</td></tr>
+        <tr><td><code>||example.com/v2/*</code></td><td>Paths under /v2/ on that host</td></tr>
+        <tr><td><code>|https://localhost:3000</code></td><td>URLs starting with that prefix</td></tr>
+        <tr><td><code>regex:^https://api\.(dev|staging)\.example\.com/</code></td><td>Regular expression (Pro)</td></tr>
+      </table>
+      <p>Filters are case-insensitive and use Chrome's <a href="https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest#filter-matching-charactgers" rel="noopener">declarativeNetRequest urlFilter</a> rules.</p>
+      <h3>Why does "Append" fail on my request header?</h3>
+      <p>Chrome only allows appending to a short list of request headers (Accept, Accept-Language, Cache-Control, Cookie, User-Agent, X-Forwarded-For and a few others). For everything else use <strong>Set</strong>. Response headers can be appended freely.</p>
+      <h3>Two rules touch the same header</h3>
+      <p>The rule higher in the list wins. Drag is not supported yet; delete and re-add to reorder.</p>
+      <h3>Some headers cannot be changed</h3>
+      <p>Chrome refuses to modify a few headers for security reasons (for example <code>Host</code> and headers set by other extensions with higher priority). Headrule shows the exact error under the rule.</p>
+      <h3>Why does Headrule ask for access to all sites?</h3>
+      <p>Because a header rule with an empty URL filter has to apply to every site. Chrome's permission model does not let an extension ask for "just the sites you add rules for" without a prompt on each one. Headrule uses that access only to pass your rules to Chrome; it does not read pages.</p>
+    </section>
+
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <p class="sub">Free covers most daily use. Pro is a single payment through Lemon Squeezy, with a 14-day refund if it does not fit.</p>
+      <div class="pricing">
+        <div class="card">
+          <h3>Free</h3>
+          <div class="price">$0</div>
+          <ul class="feat">
+            <li>Unlimited request and response header rules</li>
+            <li>URL and domain filters</li>
+            <li>One profile</li>
+            <li>Pause switch and keyboard shortcut</li>
+            <li>No account, no tracking</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Pro</h3>
+          <div class="price">$9 <small>one-time, forever</small></div>
+          <ul class="feat">
+            <li>Everything in Free</li>
+            <li>Unlimited profiles</li>
+            <li>Regex URL filters</li>
+            <li>Import and export (including ModHeader files)</li>
+            <li>Sync profiles across your Chrome devices</li>
+            <li>Use on all your own browsers</li>
+          </ul>
+          <a class="cta" id="buyLink" href="https://headrule.lemonsqueezy.com/buy/REPLACE_WITH_CHECKOUT_ID" rel="noopener">Get Pro</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Questions</h2>
+      <details><summary>Does Headrule collect any data?</summary><p>No. There is no analytics, no crash reporting and no telemetry. The only outbound request is to the license server when you activate or re-check a Pro key, and it contains the key and a device label. Read the <a href="privacy.html">privacy policy</a>.</p></details>
+      <details><summary>Does it work in Edge, Brave or Arc?</summary><p>Yes. Any Chromium-based browser that installs extensions from the Chrome Web Store.</p></details>
+      <details><summary>What happens to my rules if I uninstall?</summary><p>They are deleted with the extension, unless you exported them or have Pro sync on. Export first.</p></details>
+      <details><summary>Firefox?</summary><p>Not yet. Firefox's header APIs differ; it is on the list if enough people ask.</p></details>
+      <details><summary>How do I get support?</summary><p>Email <a href="mailto:yemoyang9@gmail.com">yemoyang9@gmail.com</a>. Include the rule that misbehaves and the URL it should match.</p></details>
+    </section>
+
+    <footer>
+      Headrule is an independent project and is not affiliated with Google or with ModHeader. · <a href="privacy.html">Privacy policy</a> · <a href="mailto:yemoyang9@gmail.com">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

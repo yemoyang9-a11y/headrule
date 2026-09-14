@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Headrule options</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <header>
+    <img src="../icons/icon48.png" width="28" height="28" alt="" />
+    <h1>Headrule</h1>
+    <span id="version" class="muted"></span>
+  </header>
+
+  <section id="licenseSection">
+    <h2>Pro license</h2>
+    <p id="licenseStatus" class="statusline"></p>
+    <div id="licenseFree">
+      <p>Free includes unlimited request and response header rules with URL filters in one profile. <strong>Pro</strong> adds unlimited profiles, regex URL filters, import/export (including ModHeader files), and sync across your Chrome devices. One payment, no subscription.</p>
+      <p><a id="buyLink" class="button primary" href="#" target="_blank" rel="noopener">Get Headrule Pro</a></p>
+      <div class="row">
+        <input type="text" id="licenseKey" placeholder="Paste your license key (from the purchase email)" spellcheck="false" />
+        <button id="activateBtn" class="primary">Activate</button>
+      </div>
+      <p id="licenseError" class="error" hidden></p>
+    </div>
+    <div id="licensePro" hidden>
+      <p>Thank you for supporting an independent tool. Your license is active on this browser.</p>
+      <div class="row">
+        <button id="recheckBtn">Re-check license</button>
+        <button id="deactivateBtn">Deactivate on this browser</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Import / export <span class="pill" id="ioPill">Pro</span></h2>
+    <p class="muted">Exports all profiles as JSON. Import accepts Headrule exports and ModHeader exports.</p>
+    <div class="row">
+      <button id="exportBtn">Export profiles</button>
+      <button id="importBtn">Import profiles</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden />
+    </div>
+    <p id="ioMsg" class="statusline"></p>
+  </section>
+
+  <section>
+    <h2>Settings</h2>
+    <label class="check"><input type="checkbox" id="syncEnabled" /> Sync profiles across my Chrome devices <span class="pill" id="syncPill">Pro</span></label>
+    <label class="check"><input type="checkbox" id="showBadge" /> Show the number of active rules on the toolbar icon</label>
+    <p class="muted">Keyboard shortcut to pause or resume all rules: <code>Alt+Shift+H</code>. Change it at <code>chrome://extensions/shortcuts</code>.</p>
+  </section>
+
+  <section>
+    <h2>Reset</h2>
+    <p class="muted">Deletes every profile and rule on this browser. Your license stays.</p>
+    <button id="resetBtn" class="danger">Reset all rules</button>
+  </section>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>Headrule runs entirely inside your browser using Chrome's declarativeNetRequest API. It does not collect analytics, does not phone home, and never sees the pages you visit. The only network request it makes is to the license server when you activate or re-check a Pro key.</p>
+    <p><a id="siteLink" href="#" target="_blank" rel="noopener">Website</a> · <a id="privacyLink" href="#" target="_blank" rel="noopener">Privacy policy</a> · <a id="supportLink" href="#">Support</a></p>
+  </section>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

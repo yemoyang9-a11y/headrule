@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Headrule</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <img src="../icons/icon32.png" width="20" height="20" alt="" />
+      <span>Headrule</span>
+    </div>
+    <div class="profile">
+      <select id="profileSelect" title="Active profile"></select>
+      <input type="text" id="profileNameInput" placeholder="Profile name" maxlength="40" hidden />
+      <button id="profileAdd" class="icon" title="New profile">+</button>
+      <button id="profileRename" class="icon" title="Rename profile">✎</button>
+      <button id="profileDelete" class="icon" title="Delete profile">🗑</button>
+    </div>
+    <label class="switch" title="Pause or resume all rules (Alt+Shift+H)">
+      <input type="checkbox" id="masterToggle" />
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <div id="upsell" class="upsell" hidden>
+    <span id="upsellText"></span>
+    <a id="upsellLink" href="#" target="_blank" rel="noopener">Get Pro</a>
+    <button id="upsellClose" class="icon" title="Dismiss">×</button>
+  </div>
+
+  <main>
+    <table class="rules">
+      <thead>
+        <tr>
+          <th class="c-on" title="Enabled"></th>
+          <th class="c-type">Type</th>
+          <th class="c-op">Action</th>
+          <th class="c-name">Header</th>
+          <th class="c-value">Value</th>
+          <th class="c-url" title="Leave empty for all URLs. Use ||example.com to match a domain, or regex:^https://api\. for a regular expression (Pro).">URL filter</th>
+          <th class="c-del"></th>
+        </tr>
+      </thead>
+      <tbody id="rulesBody"></tbody>
+    </table>
+    <div id="empty" class="empty" hidden>No rules yet. Add one below.</div>
+  </main>
+
+  <footer class="bar">
+    <button id="addRule" class="primary">+ Add rule</button>
+    <span id="status" class="status"></span>
+    <span class="spacer"></span>
+    <a href="#" id="openOptions">Options</a>
+    <a href="https://headrule.dev/help" target="_blank" rel="noopener" id="helpLink">Help</a>
+  </footer>
+
+  <datalist id="headerNames">
+    <option value="Authorization"></option>
+    <option value="Accept"></option>
+    <option value="Accept-Language"></option>
+    <option value="Cache-Control"></option>
+    <option value="Content-Type"></option>
+    <option value="Cookie"></option>
+    <option value="Origin"></option>
+    <option value="Referer"></option>
+    <option value="User-Agent"></option>
+    <option value="X-Forwarded-For"></option>
+    <option value="X-Requested-With"></option>
+    <option value="Access-Control-Allow-Origin"></option>
+    <option value="Access-Control-Allow-Headers"></option>
+    <option value="Access-Control-Allow-Methods"></option>
+    <option value="Content-Security-Policy"></option>
+    <option value="X-Frame-Options"></option>
+    <option value="Set-Cookie"></option>
+  </datalist>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

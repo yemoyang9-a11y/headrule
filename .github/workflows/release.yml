@@ -1,0 +1,55 @@
+# Publishes to the Chrome Web Store whenever a tag like v1.2.3 is pushed.
+#
+# One-time setup (see HANDOVER.md):
+#   1. Upload the first zip manually in the Chrome Web Store dashboard to get EXTENSION_ID.
+#   2. Create a Google Cloud OAuth client and refresh token for the Chrome Web Store API.
+#   3. Add repository secrets: CWS_EXTENSION_ID, CWS_PUBLISHER_ID, CWS_CLIENT_ID, CWS_CLIENT_SECRET, CWS_REFRESH_TOKEN.
+#
+# Flow: bump version -> commit -> tag -> push tag -> tests run -> zip uploaded -> submitted for review.
+name: Release to Chrome Web Store
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify tag matches manifest version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VER=$(node -p "require('./extension/manifest.json').version")
+          if [ "$TAG" != "$VER" ]; then echo "Tag $TAG != manifest $VER"; exit 1; fi
+      - name: Install Playwright (Chromium)
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Smoke test
+        run: npm test
+      - name: Build zip
+        run: npm run zip
+      - name: Upload and publish to Chrome Web Store
+        env:
+          EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
+          PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
+          CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+        run: |
+          ZIP=$(ls dist/*.zip | head -n1)
+          # No sub-command = upload AND publish (submits for review).
+          npx --yes chrome-webstore-upload-cli@4 --source "$ZIP"
+      - name: Attach zip to GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true
