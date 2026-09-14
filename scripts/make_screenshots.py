@@ -9,6 +9,24 @@ BG_TOP, BG_BOT = (13, 17, 23), (22, 34, 60)
 FONT_B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 FONT_R = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
+# test/smoke.mjs captures raw-*.png at this device pixel ratio (SHOT_SCALE)
+# so screenshots stay crisp on retina displays. Crop thresholds below are
+# written in logical (1x) pixels, then multiplied by RAW_SCALE and the
+# cropped raw image is downsampled back to logical size with LANCZOS -- this
+# keeps every layout number in this file unchanged while getting a sharper,
+# supersampled result than capturing at 1x directly.
+RAW_SCALE = 3
+
+
+def load_raw_logical(name, crop_box):
+    """Open a hi-res raw capture, crop with logical-pixel coords, then
+    downsample by RAW_SCALE to the original logical size for antialiasing."""
+    img = Image.open(os.path.join(STORE, name)).convert("RGB")
+    x0, y0, x1, y1 = crop_box
+    box = (x0 * RAW_SCALE, y0 * RAW_SCALE, min(x1, img.width // RAW_SCALE) * RAW_SCALE, min(y1, img.height // RAW_SCALE) * RAW_SCALE)
+    img = img.crop(box)
+    return img.resize((img.width // RAW_SCALE, img.height // RAW_SCALE), Image.LANCZOS)
+
 
 def background():
     img = Image.new("RGB", (W, H), BG_TOP)
@@ -53,8 +71,7 @@ def shot_popup():
     img = background()
     d = ImageDraw.Draw(img)
     text_block(d, 80, 120, "Modify any HTTP header.", "Set, append or remove request and response\nheaders. Scope each rule to a URL or domain.\nRules apply instantly, no reload needed.")
-    raw = Image.open(os.path.join(STORE, "raw-popup.png")).convert("RGB")
-    raw = raw.crop((0, 0, raw.width, min(raw.height, 262)))
+    raw = load_raw_logical("raw-popup.png", (0, 0, 680, 262))
     scale = 0.95
     raw = raw.resize((int(raw.width * scale), int(raw.height * scale)), Image.LANCZOS)
     card = shadowed(raw)
@@ -92,8 +109,7 @@ def shot_options():
     img = background()
     d = ImageDraw.Draw(img)
     text_block(d, 80, 120, "Pro: profiles, import,\nsync. One payment.", "Switch between staging, production and client\nprofiles. Import your ModHeader export in one\nclick. Regex URL filters. No subscription.", title_size=40)
-    raw = Image.open(os.path.join(STORE, "raw-options.png")).convert("RGB")
-    raw = raw.crop((80, 0, raw.width - 80, min(raw.height, 600)))
+    raw = load_raw_logical("raw-options.png", (80, 0, 900 - 80, 600))
     scale = 0.78
     raw = raw.resize((int(raw.width * scale), int(raw.height * scale)), Image.LANCZOS)
     card = shadowed(raw)

@@ -41,11 +41,15 @@ const { server, port } = await startEchoServer();
 const base = `http://127.0.0.1:${port}`;
 const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), "headrule-"));
 
+// deviceScaleFactor renders screenshots at 3x pixel density so store/site
+// images look crisp on retina displays instead of blurry when stretched.
+const SHOT_SCALE = 3;
 const context = await chromium.launchPersistentContext(userDataDir, {
   channel: "chromium",
   headless: true,
   args: [`--disable-extensions-except=${EXT}`, `--load-extension=${EXT}`],
-  viewport: { width: 1280, height: 800 }
+  viewport: { width: 1280, height: 800 },
+  deviceScaleFactor: SHOT_SCALE
 });
 
 try {
