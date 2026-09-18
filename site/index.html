@@ -52,7 +52,7 @@
     .hero p.lead { font-size: 19px; color: var(--muted); margin: 0 0 24px; }
     .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-fg); padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px; }
     .cta.secondary { background: transparent; color: var(--fg); border: 1px solid var(--border); }
-    .cta + .cta { margin-left: 10px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
     .hero img.shot { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
     .badges { margin-top: 14px; color: var(--muted); font-size: 14px; }
     section { padding: 40px 0; border-top: 1px solid var(--border); }
@@ -77,6 +77,14 @@
     summary { cursor: pointer; font-weight: 600; }
     details p { color: var(--muted); margin: 8px 0 4px; }
     footer { padding: 30px 0 50px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+    .eyebrow { display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(56,139,253,.10); border: 1px solid rgba(56,139,253,.35); padding: 3px 12px; border-radius: 999px; margin: 0 0 14px; }
+    .proof { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+    .proof li { padding-left: 24px; position: relative; }
+    .proof li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .note { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+    table.trust td:first-child { font-weight: 600; width: 30%; }
+    table.trust td { color: var(--muted); }
+    table.trust td:first-child { color: var(--fg); }
     /* Pro card emphasis */
     .pricing .card { display: flex; flex-direction: column; position: relative; }
     .pricing .card .cta { margin-top: auto; align-self: flex-start; }
@@ -110,7 +118,9 @@
       .hero h1 { font-size: 32px; }
       .grid, .pricing { grid-template-columns: 1fr; }
       .pricing { gap: 28px; }
-      nav a { margin-left: 12px; }
+      header.top { flex-direction: column; align-items: flex-start; gap: 6px; }
+      nav a { margin-left: 0; margin-right: 16px; }
+      table.trust td:first-child { width: 36%; }
     }
   </style>
 </head>
@@ -128,26 +138,46 @@
 
     <section class="hero" style="border-top:0">
       <div>
+        <p class="eyebrow">A ModHeader alternative, built for Manifest V3</p>
         <h1>Modify HTTP headers in Chrome. Nothing else.</h1>
-        <p class="lead">Add, set or remove request and response headers for any URL. Rules apply instantly. No account, no analytics, no remote code. Your ModHeader profiles import in one click.</p>
-        <a class="cta" id="installLink" href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Get Headrule, it's free</a>
-        <a class="cta secondary" href="#pricing">Pro is $9, once</a>
-        <p class="badges">Manifest V3 · Built on declarativeNetRequest · Works with Chrome, Edge, Brave and Arc<br />The Chrome Web Store listing is in review. Until it is live you can install Headrule from the <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">GitHub repository</a>.</p>
+        <p class="lead">Set, add or remove any request or response header, for any URL. No account, no analytics, and no code running inside your pages.</p>
+        <div class="cta-row">
+          <a class="cta" id="installLink" href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Get Headrule free</a>
+          <a class="cta secondary" href="#pricing">Pro: $9 once, no subscription</a>
+        </div>
+        <ul class="proof">
+          <li>Free users send zero network requests. Pro sends one kind: the license check. <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/lib/license.js#L12" target="_blank" rel="noopener">See the only fetch() in the code</a></li>
+          <li>No content scripts. Headers are changed by Chrome's own declarativeNetRequest engine</li>
+          <li>Tested in a real Chromium on every commit. <a href="https://github.com/yemoyang9-a11y/headrule/actions/workflows/ci.yml" target="_blank" rel="noopener">See the test runs</a></li>
+        </ul>
+        <p class="note">Works with Chrome, Edge, Brave and Arc. The Chrome Web Store listing is in review. Until it is live you can install Headrule from the <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">GitHub repository</a>.</p>
       </div>
       <img class="shot" src="screenshot-popup.png" alt="Headrule popup showing request and response header rules" width="1360" height="608" />
     </section>
 
     <section id="features">
       <h2>Made for the daily grind of API and frontend work</h2>
-      <p class="sub">The six things people actually use a header extension for, done properly.</p>
+      <p class="sub">The six jobs people actually install a header extension for, done properly.</p>
       <div class="grid">
-        <div class="card"><h3>Set, append, remove</h3><p>Any request or response header. Authorization tokens, custom feature flags, User-Agent, Referer, CORS headers during local development.</p></div>
+        <div class="card"><h3>Set, append, remove</h3><p>Any request or response header. Send an Authorization token to staging, fake a User-Agent or Referer, flip a feature-flag header, add CORS headers while you develop locally.</p></div>
         <div class="card"><h3>Scope rules to URLs</h3><p>Leave the filter empty for everywhere, use <code>||api.example.com</code> for one domain, or a regular expression when you need precision.</p></div>
-        <div class="card"><h3>Instant, no reload</h3><p>Rules are handed to Chrome's native request engine the moment you type. No page refresh, no background script watching your traffic.</p></div>
+        <div class="card"><h3>Live on the next request</h3><p>Rules go straight to Chrome's built-in request engine as you type. Nothing to restart, and no background script watching your traffic.</p></div>
         <div class="card"><h3>Profiles</h3><p>Staging, production, client A, CORS debugging. Switch with one click. The toolbar badge shows how many rules are live.</p></div>
         <div class="card"><h3>One switch to pause</h3><p>Flip the toggle or press <code>Alt+Shift+H</code> and every rule is removed until you turn it back on.</p></div>
-        <div class="card"><h3>Private by design</h3><p>Headrule cannot read page content. It never contacts a server except the license check when you activate Pro. The source is public for audit.</p></div>
+        <div class="card"><h3>Nothing phones home</h3><p>No analytics, no crash reports, no remote code. The only request Headrule can make is the Pro license check. The source is public, so you can confirm that yourself.</p></div>
       </div>
+    </section>
+
+    <section id="trust">
+      <h2>Don't take our word for it. Check it.</h2>
+      <p class="sub">A header extension sits next to every request you make, so it has to earn that position. Here is what Headrule does with its access, and where to verify each point.</p>
+      <table class="trust">
+        <tr><th>What Headrule does</th><th>Why, and how to check</th></tr>
+        <tr><td>Asks for access to all sites</td><td>Chrome shows this as "read and change all your data on all websites". It is needed because a rule with an empty URL filter has to apply everywhere. Headrule uses it only to hand your rules to Chrome. The <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/manifest.json" target="_blank" rel="noopener">manifest</a> declares no content scripts and no webRequest permission, so Headrule never runs code inside the pages you visit.</td></tr>
+        <tr><td>Talks to a server only for Pro</td><td>Activating a Pro key, and re-checking it once a week, sends the key and a device label to Lemon Squeezy's license API. That is the <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/lib/license.js#L12" target="_blank" rel="noopener">single fetch() in the codebase</a>. Free users send nothing.</td></tr>
+        <tr><td>Keeps your rules on your device</td><td>Rules live in Chrome's local extension storage. Pro sync goes through your own Chrome account. Headrule has no server and no database of its own.</td></tr>
+        <tr><td>Is made by one developer</td><td>Headrule is an independent project with its source on <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">GitHub</a>. Mail to <a href="mailto:support@headrule.com">support@headrule.com</a> reaches the person who wrote the code.</td></tr>
+      </table>
     </section>
 
     <section id="modheader">
@@ -180,13 +210,12 @@
       <p>The rule higher in the list wins. Drag is not supported yet; delete and re-add to reorder.</p>
       <h3>Some headers cannot be changed</h3>
       <p>Chrome refuses to modify a few headers for security reasons (for example <code>Host</code> and headers set by other extensions with higher priority). Headrule shows the exact error under the rule.</p>
-      <h3>Why does Headrule ask for access to all sites?</h3>
-      <p>Because a header rule with an empty URL filter has to apply to every site. Chrome's permission model does not let an extension ask for "just the sites you add rules for" without a prompt on each one. Headrule uses that access only to pass your rules to Chrome; it does not read pages.</p>
+      <p>Why Headrule needs access to all sites is explained under <a href="#trust">Check it</a>.</p>
     </section>
 
     <section id="pricing">
       <h2>Pricing</h2>
-      <p class="sub">Free covers most daily use. Pro is a single payment through Lemon Squeezy, with a 14-day refund if it does not fit.</p>
+      <p class="sub">Free is enough if one set of rules covers your work. Pro is for people who jump between staging, production and client setups all day.</p>
       <div class="pricing">
         <div class="card">
           <h3>Free</h3>
@@ -199,20 +228,22 @@
             <li>No account, no tracking</li>
           </ul>
           <a class="cta secondary" id="installLinkFree" href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Install free</a>
+          <p class="note">No signup, no card.</p>
         </div>
         <div class="card pro">
-          <span class="tag">Pay once, keep forever</span>
+          <span class="tag">No subscription</span>
           <h3>Pro</h3>
-          <div class="price">$9 <small>one-time, forever</small></div>
+          <div class="price">$9 <small>one-time, key never expires</small></div>
           <ul class="feat">
             <li>Everything in Free</li>
             <li>Unlimited profiles</li>
             <li>Regex URL filters</li>
-            <li>Import and export (including ModHeader files)</li>
-            <li>Sync profiles across your Chrome devices</li>
-            <li>Use on all your own browsers</li>
+            <li>Import and export, including ModHeader files</li>
+            <li>Sync profiles through your Chrome account</li>
+            <li>Activate on up to 5 of your browsers</li>
           </ul>
           <a class="cta" id="buyLink" href="https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa" target="_blank" rel="noopener">Get Pro for $9</a>
+          <p class="note">14-day refund. Secure checkout by Lemon Squeezy.</p>
         </div>
       </div>
     </section>
@@ -220,6 +251,7 @@
     <section id="faq">
       <h2>Questions</h2>
       <details><summary>Does Headrule collect any data?</summary><p>No. There is no analytics, no crash reporting and no telemetry. The only outbound request is to the license server when you activate or re-check a Pro key, and it contains the key and a device label. Read the <a href="privacy.html">privacy policy</a>.</p></details>
+      <details><summary>Is Pro a subscription?</summary><p>No. You pay $9 once and the key does not expire. It works on up to 5 of your browsers, and you can free a slot any time with <strong>Deactivate on this browser</strong> in Options.</p></details>
       <details><summary>Does it work in Edge, Brave or Arc?</summary><p>Yes. Any Chromium-based browser that installs extensions from the Chrome Web Store.</p></details>
       <details><summary>What happens to my rules if I uninstall?</summary><p>They are deleted with the extension, unless you exported them or have Pro sync on. Export first.</p></details>
       <details><summary>Firefox?</summary><p>Not yet. Firefox's header APIs differ; it is on the list if enough people ask.</p></details>
@@ -227,7 +259,7 @@
     </section>
 
     <footer>
-      Headrule is an independent project and is not affiliated with Google or with ModHeader. · <a href="privacy.html">Privacy policy</a> · <a href="mailto:support@headrule.com">Support</a>
+      Headrule 1.0.0 · Updated September 2026 · An independent project, not affiliated with Google or with ModHeader · <a href="privacy.html">Privacy policy</a> · <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Source on GitHub</a> · <a href="mailto:support@headrule.com">Support</a>
     </footer>
   </div>
 </body>
