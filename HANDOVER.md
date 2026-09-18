@@ -127,7 +127,7 @@ npm run bump 1.0.1   버전 올리기
 1.0.0은 심사 승인 상태이고, 1.0.1은 코드·테스트·zip까지 끝났습니다(`dist/headrule-1.0.1.zip`). 사람이 할 일만 남았습니다.
 
 1. **git push (사람).** `cd C:\Users\yemoy\projects\headrule` 다음 `git push`. main만 올라갑니다. `site-1.0.1` 브랜치는 아직 올리지 않습니다
-2. **$0 실결제 테스트 (사람, 가장 중요).** Lemon Squeezy → Store → Discounts → New discount → 코드 `TEST100`, 100%, 사용 1회, 적용 상품 Headrule Pro → headrule.com의 Get Pro → 할인 코드 입력 → $0 결제 → 메일의 키를 확장 옵션에 넣고 Activate → "Pro active"가 떠야 합니다. `config.js` 의 productId(1362488)가 맞는지 확인할 방법은 이것뿐입니다. 테스트용 확장은 `chrome://extensions` → 개발자 모드 → 압축해제된 확장 프로그램을 로드 → `extension` 폴더
+2. **(완료 2026-09-18) $0 실결제 테스트.** 할인 코드로 $0 주문 → 메일로 받은 실제 키를 1.0.1(압축해제 로드)에 넣어 "Pro active · yemoyang9@gmail.com" 확인. 상품 ID 1362488, 스토어 ID 473656, 실제 Lemon Squeezy 활성화 경로 모두 정상. 테스트 뒤 할 일: 옵션에서 Deactivate, 압축해제 확장 삭제, 할인 코드 삭제. 원래 절차: Lemon Squeezy → Store → Discounts → New discount → 코드 `TEST100`, 100%, 사용 1회, 적용 상품 Headrule Pro → headrule.com의 Get Pro → 할인 코드 입력 → $0 결제 → 메일의 키를 확장 옵션에 넣고 Activate → "Pro active"가 떠야 합니다. `config.js` 의 productId(1362488)가 맞는지 확인할 방법은 이것뿐입니다. 테스트용 확장은 `chrome://extensions` → 개발자 모드 → 압축해제된 확장 프로그램을 로드 → `extension` 폴더
 3. **Lemon Squeezy 상품 설명에서 sync 빼기 (사람).** 1.0.0의 동기화는 고장이라 1.0.1이 공개될 때까지 팔지 않습니다
 4. **1.0.0 게시 버튼 (사람).** 조용히 게시만 합니다. 홍보는 하지 않습니다
 5. **1.0.1 제출 (사람).** 개발자 대시보드 → Headrule → 왼쪽 "패키지" → "새 패키지 업로드" → `dist\headrule-1.0.1.zip` → "스토어 등록정보" 탭에서 요약·설명을 `store/listing.md` 의 새 문구로 교체 → "개인정보 보호" 탭의 storage 사유도 새 문구로 교체 → "검토를 위해 제출". 이번에도 "검토 통과 후 자동 게시"는 끄고 제출합니다
