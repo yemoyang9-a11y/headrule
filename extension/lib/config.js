@@ -4,7 +4,7 @@
 // only accepts keys issued for the matching store/product.
 export const CONFIG = {
   productName: "Headrule",
-  version: "1.0.0",
+  version: "1.0.1",
   siteUrl: "https://headrule.com",
   buyUrl: "https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa",
   supportEmail: "support@headrule.com",
@@ -19,7 +19,7 @@ export const CONFIG = {
   free: {
     maxProfiles: 1,
     allowRegexFilter: false,
-    allowImportExport: false,
+    allowImportExport: true,
     allowSync: false
   },
   // Validate a stored license against the API this often; keep working

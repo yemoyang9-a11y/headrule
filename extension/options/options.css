@@ -43,3 +43,5 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 label.check { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
 code { background: var(--bg2); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
 a { color: var(--accent); }
+.small { font-size: 12px; }
+.choice { border: 1px solid var(--accent); border-radius: 8px; padding: 10px 12px; margin: 8px 0; background: var(--bg2); }

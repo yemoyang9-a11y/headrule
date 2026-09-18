@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Headrule - Modify HTTP Request & Response Headers",
   "short_name": "Headrule",
-  "version": "1.0.0",
-  "description": "Add, set or remove HTTP request and response headers per URL. Profiles, no accounts, no tracking. A clean ModHeader alternative.",
+  "version": "1.0.1",
+  "description": "Add, set or remove HTTP request and response headers per URL. Profiles, no accounts, no tracking. A ModHeader alternative.",
   "minimum_chrome_version": "121",
   "icons": {
     "16": "icons/icon16.png",

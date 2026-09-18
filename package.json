@@ -1,12 +1,12 @@
 {
   "name": "headrule",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Headrule - modify HTTP request and response headers (Chrome extension, Manifest V3)",
   "type": "module",
   "scripts": {
     "icons": "python3 scripts/make_icons.py",
-    "test": "node test/smoke.mjs",
+    "test": "node test/smoke.mjs && node test/pro.mjs",
     "shots": "node test/smoke.mjs --shots && python3 scripts/make_screenshots.py && python3 scripts/make_hero_shot.py",
     "zip": "node scripts/zip.mjs",
     "bump": "node scripts/bump.mjs"

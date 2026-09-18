@@ -13,6 +13,8 @@ async function post(path, params) {
     method: "POST",
     headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded" },
     body: form(params)
+  }).catch(() => {
+    throw new Error("Could not reach the license server. Check your internet connection and try again.");
   });
   let data = null;
   try { data = await res.json(); } catch { /* non-JSON error body */ }
@@ -53,7 +55,12 @@ export async function validateLicense(license) {
   const params = { license_key: license.key };
   if (license.instanceId) params.instance_id = license.instanceId;
   const data = await post("validate", params);
-  return { valid: !!data.valid && ownershipOk(data.meta), status: data.license_key?.status || "unknown", error: data.error || null };
+  const valid = !!data.valid && ownershipOk(data.meta);
+  const keyStatus = data.license_key?.status;
+  // A key can be "active" on the server while this browser's activation was
+  // removed, or while it belongs to another product; treat both as invalid here.
+  const status = valid ? "active" : keyStatus && keyStatus !== "active" ? keyStatus : "invalid";
+  return { valid, status, error: data.error || null };
 }
 
 export async function deactivateLicense(license) {

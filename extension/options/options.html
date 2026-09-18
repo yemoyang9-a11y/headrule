@@ -16,7 +16,7 @@
     <h2>Pro license</h2>
     <p id="licenseStatus" class="statusline"></p>
     <div id="licenseFree">
-      <p>Free includes unlimited request and response header rules with URL filters in one profile. <strong>Pro</strong> adds unlimited profiles, regex URL filters, import/export (including ModHeader files), and sync across your Chrome devices. One payment, no subscription.</p>
+      <p>Free includes unlimited request and response header rules with URL filters in one profile, plus import and export (including ModHeader files). <strong>Pro</strong> adds unlimited profiles, regex URL filters, and sync across your Chrome browsers. One payment, no subscription.</p>
       <p><a id="buyLink" class="button primary" href="#" target="_blank" rel="noopener">Get Headrule Pro</a></p>
       <div class="row">
         <input type="text" id="licenseKey" placeholder="Paste your license key (from the purchase email)" spellcheck="false" />
@@ -35,7 +35,7 @@
 
   <section>
     <h2>Import / export <span class="pill" id="ioPill">Pro</span></h2>
-    <p class="muted">Exports all profiles as JSON. Import accepts Headrule exports and ModHeader exports.</p>
+    <p class="muted">Exports all profiles as JSON. Import accepts Headrule exports and ModHeader exports; ModHeader URL filters are converted, and a rule whose filter cannot be converted is imported switched off with a note.</p>
     <div class="row">
       <button id="exportBtn">Export profiles</button>
       <button id="importBtn">Import profiles</button>
@@ -46,7 +46,20 @@
 
   <section>
     <h2>Settings</h2>
-    <label class="check"><input type="checkbox" id="syncEnabled" /> Sync profiles across my Chrome devices <span class="pill" id="syncPill">Pro</span></label>
+    <label class="check"><input type="checkbox" id="syncEnabled" /> Sync profiles across my Chrome browsers <span class="pill" id="syncPill">Pro</span></label>
+    <p class="muted small">Uses your own Chrome account sync (you must be signed in to Chrome with sync on). Header values, including tokens, travel with it. Headrule has no server.</p>
+    <p id="syncMsg" class="statusline"></p>
+    <div id="syncChoice" class="choice" hidden>
+      <p id="syncChoiceText"></p>
+      <div class="row">
+        <button id="syncMerge" class="primary">Merge both</button>
+        <button id="syncUseRemote">Use the synced profiles</button>
+        <button id="syncUseLocal">Use this browser's profiles</button>
+        <button id="syncCancel">Cancel</button>
+      </div>
+      <p class="muted small">Merge keeps every profile from both sides. The other two options replace one side completely.</p>
+    </div>
+    <p><button id="syncClear" hidden>Delete the synced copy from my Chrome account</button></p>
     <label class="check"><input type="checkbox" id="showBadge" /> Show the number of active rules on the toolbar icon</label>
     <p class="muted">Keyboard shortcut to pause or resume all rules: <code>Alt+Shift+H</code>. Change it at <code>chrome://extensions/shortcuts</code>.</p>
   </section>

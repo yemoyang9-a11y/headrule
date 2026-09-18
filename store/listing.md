@@ -6,7 +6,7 @@
 Headrule - Modify HTTP Request & Response Headers
 
 **Summary** (max 132 characters)
-Add, set or remove HTTP headers per URL. Profiles, instant apply, no accounts, no tracking. A clean ModHeader alternative.
+Add, set or remove HTTP request and response headers per URL. Profiles, free ModHeader import, no accounts, no tracking.
 
 **Category**
 Developer Tools
@@ -21,7 +21,7 @@ Headrule modifies HTTP request and response headers for any URL, directly inside
 WHAT IT DOES
 • Set, append or remove any request or response header
 • Scope each rule to a domain (||api.example.com), a URL prefix, or a regular expression
-• Rules apply instantly, no page reload
+• Rules apply from the next request, nothing to restart
 • Profiles for staging, production, client work, CORS debugging
 • One switch (or Alt+Shift+H) pauses every rule
 • The toolbar badge shows how many rules are live
@@ -31,10 +31,10 @@ WHY HEADRULE
 Headrule uses Chrome's declarativeNetRequest API. Your rules are handed to the browser's own request engine, which means no background script reading your traffic, no content scripts, and no way for the extension to see page content. There is no account, no analytics and no remote code. The only network request it ever makes is the license check when you activate Pro.
 
 SWITCHING FROM MODHEADER
-ModHeader was removed from the Chrome and Edge stores in July 2026. Headrule imports ModHeader JSON exports (request headers, response headers, enabled states, comments) so you can carry your profiles over in one click.
+ModHeader was removed from the Chrome and Edge stores in July 2026. Headrule imports ModHeader JSON exports for free: profile names, request and response headers, enabled states, comments and URL filters. A rule whose filter cannot be converted is imported switched off with a note, so nothing is sent where you did not intend.
 
 FREE AND PRO
-Free: unlimited request and response rules, URL filters, one profile, pause switch. Pro ($9, one payment, no subscription): unlimited profiles, regex URL filters, import/export, and sync across your Chrome devices.
+Free: unlimited request and response rules, URL filters, one profile, pause switch, import and export (including ModHeader files). Pro ($9, one payment, no subscription): unlimited profiles, regex URL filters, and sync across your Chrome browsers through your own Chrome account.
 
 WORKS WITH
 Chrome, Edge, Brave, Arc and other Chromium browsers.
@@ -59,7 +59,7 @@ declarativeNetRequest
 This is the API that performs the extension's only function. The header rules the user creates are converted into declarativeNetRequest dynamic rules so that Chrome's own network stack applies them. Without this permission the extension cannot modify any header and has no purpose.
 
 storage
-Stores the user's header rules, profiles and settings locally so they persist between browser sessions. chrome.storage.sync is used only when the user explicitly enables the sync option, to carry the same rules to their other Chrome devices. Nothing is sent to any server of ours.
+Stores the user's header rules, profiles and settings locally so they persist between browser sessions. chrome.storage.sync is used only when the user explicitly enables the sync option (Pro), to carry the same profiles to their other signed-in Chrome browsers. Nothing is sent to any server of ours.
 
 alarms
 Schedules a weekly background re-validation of a paid Pro license key against the Lemon Squeezy license API. This is the only scheduled task in the extension and it runs at most once per week. Users who never buy Pro never trigger it.
