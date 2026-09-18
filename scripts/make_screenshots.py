@@ -70,7 +70,7 @@ def text_block(d, x, y, title, sub, title_size=44, sub_size=22, max_w=560):
 def shot_popup():
     img = background()
     d = ImageDraw.Draw(img)
-    text_block(d, 80, 120, "Modify any HTTP header.", "Set, append or remove request and response\nheaders. Scope each rule to a URL or domain.\nRules apply instantly, no reload needed.")
+    text_block(d, 80, 120, "Modify any HTTP header.", "Set, append or remove request and response\nheaders. Scope each rule to a URL or domain.\nRules apply from the next request.")
     raw = load_raw_logical("raw-popup.png", (0, 0, 680, 262))
     scale = 0.95
     raw = raw.resize((int(raw.width * scale), int(raw.height * scale)), Image.LANCZOS)
@@ -94,7 +94,7 @@ def shot_privacy():
     d.text(((W - tw) / 2, 350), title, font=ft, fill=(255, 255, 255))
     lines = [
         "Built on Chrome's declarativeNetRequest API, so Headrule never reads page content.",
-        "Nothing leaves your browser. Rules are stored locally and optionally synced by Chrome.",
+        "Rules stay in your browser. Pro sync uses your own Chrome account, not our server.",
         "Pause everything with one switch or Alt+Shift+H.",
     ]
     y = 440
@@ -108,8 +108,14 @@ def shot_privacy():
 def shot_options():
     img = background()
     d = ImageDraw.Draw(img)
-    text_block(d, 80, 120, "Pro: profiles, import,\nsync. One payment.", "Switch between staging, production and client\nprofiles. Import your ModHeader export in one\nclick. Regex URL filters. No subscription.", title_size=40)
-    raw = load_raw_logical("raw-options.png", (80, 0, 900 - 80, 600))
+    text_block(d, 80, 120, "Pro: unlimited profiles,\nregex filters, sync.", "Switch between staging, production and client\nprofiles, and keep them in sync through your\nown Chrome account. $9 once, no subscription.", title_size=40)
+    # Free ModHeader import, called out so nobody reads it as a Pro feature.
+    fp = ImageFont.truetype(FONT_B, 20)
+    label = "ModHeader import is free for everyone"
+    tw = d.textlength(label, font=fp)
+    d.rounded_rectangle((80, 380, 80 + tw + 36, 424), radius=22, fill=(31, 111, 235))
+    d.text((98, 391), label, font=fp, fill=(255, 255, 255))
+    raw = load_raw_logical("raw-options-pro.png", (80, 0, 900 - 80, 605))
     scale = 0.78
     raw = raw.resize((int(raw.width * scale), int(raw.height * scale)), Image.LANCZOS)
     card = shadowed(raw)

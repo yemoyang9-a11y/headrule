@@ -131,7 +131,8 @@ npm run bump 1.0.1   버전 올리기
 3. **Lemon Squeezy 상품 설명에서 sync 빼기 (사람).** 1.0.0의 동기화는 고장이라 1.0.1이 공개될 때까지 팔지 않습니다
 4. **1.0.0 게시 버튼 (사람).** 조용히 게시만 합니다. 홍보는 하지 않습니다
 5. **1.0.1 제출 (사람).** 개발자 대시보드 → Headrule → 왼쪽 "패키지" → "새 패키지 업로드" → `dist\headrule-1.0.1.zip` → "스토어 등록정보" 탭에서 요약·설명을 `store/listing.md` 의 새 문구로 교체 → "개인정보 보호" 탭의 storage 사유도 새 문구로 교체 → "검토를 위해 제출". 이번에도 "검토 통과 후 자동 게시"는 끄고 제출합니다
-6. **1.0.1 승인 후:** 게시 버튼 → Claude에게 "1.0.1 게시했어"라고 말하면 `site-1.0.1` 브랜치를 main에 합치고(가져오기 무료, 필터 가져오기, Pro에 sync 복귀), 설치 버튼을 스토어 주소로 바꾸고, "in review" 문장을 지웁니다 → Lemon Squeezy 설명에 sync 다시 넣기 → 그다음 홍보(5-8)
+6. **1.0.1 승인 후 스크린샷 교체 (사람).** 대시보드 → 스토어 등록정보 → 스크린샷에서 기존 3장을 지우고 `store/screenshot-1~3-1280x800.png` 새 파일을 순서대로 올린 뒤 저장. 3번이 가장 중요합니다(가져오기 무료, Pro는 프로필·정규식·동기화). 1·2번은 "no reload", "Nothing leaves your browser" 같은 부정확한 문구를 고친 것. 다시 만들 때는 `node scripts/capture_pro_options.mjs && node test/smoke.mjs --shots && python3 scripts/make_screenshots.py`
+7. **1.0.1 승인 후:** 게시 버튼 → Claude에게 "1.0.1 게시했어"라고 말하면 `site-1.0.1` 브랜치를 main에 합치고(가져오기 무료, 필터 가져오기, Pro에 sync 복귀), 설치 버튼을 스토어 주소로 바꾸고, "in review" 문장을 지웁니다 → Lemon Squeezy 설명에 sync 다시 넣기 → 그다음 홍보(5-8)
 
 설치 버튼 교체 내용: 상단 `#installLink`, 가격표 Free 카드 `#installLinkFree` 를 스토어 주소로, 상단 버튼 글자는 "Add to Chrome, it's free"로 바꿉니다.
 
