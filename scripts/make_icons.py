@@ -46,7 +46,11 @@ def glyph(size: int, scale: int = 8) -> Image.Image:
 for s in (16, 32, 48, 128):
     glyph(s).save(os.path.join(ICON_DIR, f"icon{s}.png"))
 
-glyph(128).save(os.path.join(STORE_DIR, "store-icon-128.png"))
+# Chrome Web Store guideline: 96x96 artwork centred inside a 128x128
+# canvas with 16px of transparent padding on every side.
+_store = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
+_store.paste(glyph(96), (16, 16), glyph(96))
+_store.save(os.path.join(STORE_DIR, "store-icon-128.png"))
 glyph(512).save(os.path.join(STORE_DIR, "icon-512.png"))
 
 # Small promo tile 440x280

@@ -1,86 +1,158 @@
-# Headrule 진행 체크리스트
+# Headrule 인수인계 문서
 
-1호 제품 Headrule(크롬 HTTP 헤더 수정 확장 프로그램)의 현재 상태와 남은 일입니다.
-2026년 9월 14일 기준으로 다시 정리했습니다.
+2026년 9월 15일 기준. 이 폴더가 무엇이고, 어디까지 했고, 무엇이 남았는지를 한 장에 정리한 문서입니다.
+새 대화창에서 이어서 작업할 때는 이 파일부터 읽으면 됩니다.
 
-## 지금까지 끝난 것
+---
 
-- 확장 프로그램 본체 완성. 실제 크롬에서 헤더가 진짜 바뀌는지 자동 테스트 11개 항목 전부 통과.
-- 랜딩 페이지와 개인정보처리방침 작성 완료.
-- 스토어 등록 문안, 아이콘, 스크린샷 3장, 프로모 타일 제작 완료.
-- GitHub 저장소 생성(Public) 및 push 완료. 주소는 github.com/yemoyang9-a11y/headrule
-- GitHub Pages를 GitHub Actions 방식으로 켜 둠.
-- CI 자동 테스트가 GitHub 서버에서 초록불 통과. 스토어용 zip도 자동 생성됨.
-- 크롬 웹스토어 개발자 등록비 5달러 결제, 판매자(trader)로 선택.
-- 레몬스퀴지 가입, 스토어 이름 Headrule, 주소 headrule.lemonsqueezy.com, 연락처 이메일 설정, 로고 업로드.
-- 정산 계좌용 신한은행 SWIFT 코드 확인(SHBKKRSE).
+## 1. 이 프로젝트가 뭔가
 
-## 지금 확인해야 할 것 (5분)
+Headrule은 크롬 확장 프로그램입니다. 웹사이트에 접속할 때 브라우저가 서버에 같이 보내는 정보 쪽지(HTTP 헤더)를 사용자가 원하는 대로 바꿔주는 도구입니다. 개발자들이 테스트할 때 "나 로그인 돼 있어", "나 아이폰이야" 같은 내용을 임시로 넣거나 빼려고 씁니다.
 
-아래 네 가지는 했는지 확실하지 않아서 한 번씩 열어 보셔야 합니다.
+왜 이걸 만들었느냐면, 같은 일을 하던 ModHeader라는 확장 프로그램이 2026년 7월에 크롬과 엣지 스토어에서 퇴출당했기 때문입니다. 보안 업체 Stripe OLT의 분석에서 숨겨진 데이터 수집 코드가 발견됐다는 보도가 나온 뒤였습니다. 사용자가 160만 명이었고, 그 사람들이 지금 대체품을 찾고 있습니다. Headrule은 같은 기능을 하되 데이터를 일절 수집하지 않는 깨끗한 대체품이라는 자리를 노립니다.
 
-1. **사이트가 실제로 열리는지.** https://yemoyang9-a11y.github.io/headrule/ 를 주소창에 넣어 보세요. 안 열리면 저장소 Actions 탭 → Deploy site → Re-run all jobs.
-2. **레몬스퀴지 통화가 USD인지.** Settings → General → Currency. 첫 판매 전에만 바꿀 수 있습니다.
-3. **크롬 웹스토어 본인 확인이 통과했는지.** 개발자 대시보드에 경고 배너가 남아 있는지 보세요. 주소 증빙 서류를 아직 못 올렸다면 신한 앱에서 주소가 찍힌 거래내역서나 잔액증명서를 뽑아 올리면 됩니다.
-4. **레몬스퀴지 정산 계좌 등록.** 예금주명은 신한 앱에 등록된 영문 이름과 똑같이, SWIFT는 SHBKKRSE, 계좌번호는 하이픈 없이 숫자만.
+돈은 이렇게 법니다. 기본 기능은 무료로 풀고, 프로필 여러 개 저장하기, 정규식 URL 필터, 내보내기와 가져오기, 기기 간 동기화 같은 편의 기능을 Pro로 묶어서 9달러에 딱 한 번 받습니다. 구독이 아닙니다. 결제는 레몬스퀴지가 대신 받아주는데, 이 방식(Merchant of Record)이면 각 나라 부가세를 레몬스퀴지가 알아서 처리해주고 한국에서 사업자등록을 따로 하지 않아도 됩니다.
 
-## 남은 일
+큰 그림은 이렇습니다. Headrule은 1호 제품이고, 저장소 구조와 자동화 파이프라인을 그대로 복사해서 2호, 3호를 붙여 나가는 것이 계획입니다. 한 개에 걸지 않습니다.
 
-### 1. 레몬스퀴지 스토어 활성화 마무리
+---
 
-사업 설문의 두 칸에 이렇게 넣습니다.
+## 2. 폴더 구조
 
-웹사이트:
+컴퓨터 기준 위치는 `C:\Users\yemoy\projects\headrule` 입니다.
+
+| 폴더 | 안에 뭐가 있나 |
+|---|---|
+| `extension/` | 확장 프로그램 본체. 실제로 크롬에 설치되는 것 |
+| `site/` | 랜딩 페이지. main에 올리면 GitHub Pages로 자동 배포됨 |
+| `store/` | 크롬 웹스토어 제출용 자료. 등록 문안, 아이콘, 스크린샷, 프로모 타일 |
+| `scripts/` | 아이콘 생성, 스크린샷 생성, zip 만들기, 버전 올리기 도구 |
+| `test/` | 자동 테스트. 진짜 크롬을 띄워서 헤더가 실제로 바뀌는지 검증 |
+| `.github/workflows/` | 자동화 설정 세 개 (테스트, 사이트 배포, 스토어 업로드) |
+| `dist/` | 업로드용 zip 파일. 깃에는 안 올라감 |
+| `LAUNCH.md` | 런칭할 때 쓸 글 초안 모음 (해커뉴스, 레딧, 프로덕트헌트, dev.to) |
+
+extension 폴더 안에서 중요한 파일은 이렇습니다.
+
+- `manifest.json` 확장 프로그램 설정과 버전 번호
+- `lib/config.js` 사이트 주소, 구매 링크, 지원 이메일, 레몬스퀴지 ID가 들어가는 곳
+- `lib/rules.js` 사용자가 만든 규칙을 크롬이 알아듣는 형태로 바꾸는 부분
+- `lib/license.js` Pro 라이선스 키 인증
+- `lib/storage.js` 규칙 저장, ModHeader 파일 가져오기
+- `popup/` 툴바 아이콘 눌렀을 때 뜨는 화면
+- `options/` 라이선스 입력과 설정 화면
+
+자주 쓰는 명령어입니다. 프로젝트 폴더에서 실행합니다.
+
 ```
-https://yemoyang9-a11y.github.io/headrule/
+npm test          자동 테스트 실행 (11개 항목)
+npm run shots     스크린샷 다시 만들기
+npm run zip       스토어 업로드용 zip 만들기
+npm run bump 1.0.1   버전 올리기
 ```
 
-제품 설명(영어로):
+---
+
+## 3. 계정과 주소 정리
+
+| 항목 | 값 |
+|---|---|
+| 저장소 | github.com/yemoyang9-a11y/headrule (공개) |
+| 사이트 | https://headrule.com (Cloudflare 등록, 2026-09-15 구매, 자동 갱신 켜짐) |
+| 크롬 웹스토어 개발자 계정 | yemoyang9@gmail.com |
+| 레몬스퀴지 스토어 | headrule.lemonsqueezy.com (Store ID 473656) |
+| Headrule Pro 상품 | Product ID 1362488, $9 일회성, 라이선스 키 무기한, 기기 5대 |
+| 확장 프로그램 ID | mclcmbfklofongahjpfioipdipbldipp |
+| 지원 이메일 | support@headrule.com (Cloudflare Email Routing으로 yemoyang9@gmail.com 전달) |
+| 정산 계좌·등록 주소·우편번호 | 로컬 전용 PRIVATE.md 참고 (공개 저장소라 git에서 제외) |
+
+등록 주소 표기는 구글 결제 프로필, 레몬스퀴지 사업장 주소, W-8 거주지 주소 세 곳을 같은 표기로 통일해 두었습니다. 상세는 PRIVATE.md.
+
+---
+
+## 4. 지금까지 끝난 것
+
+**제품**
+
+- 확장 프로그램 1.0.0 완성. Manifest V3, declarativeNetRequest 기반이라 페이지 내용을 읽을 수 없는 구조
+- 요청 헤더와 응답 헤더 설정, 추가, 제거. URL별 적용. 프로필. 일시정지 스위치. ModHeader 내보내기 파일 가져오기
+- 자동 테스트 11개 항목 전부 통과. 실제 크롬에서 헤더가 진짜 바뀌는 것까지 검증함
+
+**배포 준비**
+
+- 랜딩 페이지와 개인정보처리방침 작성, GitHub Pages로 배포 중
+- 스토어 등록 문안, 아이콘, 스크린샷 3장, 프로모 타일 제작
+- GitHub 저장소 생성 및 공개, CI 자동 테스트 초록불
+- 히어로 스크린샷을 3배 해상도로 다시 찍고 브라우저 툴바 모양을 입혀서 교체
+- **도메인 headrule.com 구매 및 연결 완료** (Cloudflare, 2026-09-15. DNS 레코드 5개 정상, 사이트 https 정상)
+- 코드와 문서의 주소를 전부 headrule.com 으로 교체, 지원 이메일은 support@headrule.com 으로 변경
+
+**계정**
+
+- 크롬 웹스토어 개발자 등록비 5달러 결제 완료
+- 판매자(trader) 선언, 주민등록초본 제출, **신원 확인 승인 완료** (2026-09-15 확인, "확인된 계정" 표시)
+- 레몬스퀴지 가입, 스토어 생성, 통화 USD, 로고 업로드
+- 신한은행 정산 계좌 등록
+- 사업 관련 질문지 제출
+- **스토어 활성화 승인 완료** (2026-09-15 확인, Settings → General → Store activation 상태 Active)
+- **W-8 세금 양식 서명 완료** (Payouts에 Submitted 표시)
+- **Headrule Pro 상품 발행 완료** (라이브 모드, License keys 켜짐, 길이 무기한, Activation limit 5)
+- **결제 경로 코드 연결 완료** (config.js의 buyUrl, storeId, productId. 랜딩 페이지 Get Pro 버튼)
+- **크롬 웹스토어 심사 제출 완료** (2026-09-15. 자동 게시 해제 상태라 승인돼도 직접 눌러야 공개됨)
+
+---
+
+## 5. 남은 일
+
+### 5-1. 깃허브에 올리기 (1분)
+
+결제 연결과 도메인 교체분이 아직 안 올라갔습니다.
+
+```powershell
+cd C:\Users\yemoy\projects\headrule
+git add -A
+git commit -m "Wire up Lemon Squeezy checkout, store and product IDs"
+git push
 ```
-I sell Headrule, a Chrome browser extension for web developers and QA engineers that lets them add, change or remove HTTP request and response headers while testing websites and APIs. The extension is free on the Chrome Web Store, and customers find it through Chrome Web Store search and my website. I charge a single one-time payment of $9 for a "Pro" license key that unlocks extra features such as multiple rule profiles, regex URL filters and import/export. There is no subscription, and the license key is delivered automatically by email after checkout.
-```
 
-승인은 영업일 기준 2~3일 걸립니다.
+### 5-2. 크롬 웹스토어 승인 대기 (며칠~2주)
 
-### 2. 상품 만들기
+제출은 끝났습니다. 제출할 때 "검토 통과 후 자동 게시" 체크를 해제했기 때문에, 승인이 나도 저절로 공개되지 않습니다. 승인 후 30일 안에 직접 게시 버튼을 눌러야 합니다.
 
-Products → New product에서 다섯 가지만 맞추면 됩니다.
+호스트 권한이 넓어서 심사가 오래 걸린다는 안내를 받았습니다. 반려되면 사유가 메일로 오는데, 거의 항상 권한 사유 설명 문제입니다. 그때는 `store/listing.md` 의 문안을 더 자세히 고쳐서 재제출합니다.
 
-- 이름: Headrule Pro
-- 가격: 9 USD, 결제 유형 Single payment
-- License keys 토글 켜기, Activation limit 5
-- Refund policy 14 days
-- 설명 한 줄: Unlocks unlimited profiles, regex URL filters, import/export and sync in the Headrule Chrome extension. Paste the license key into Headrule → Options.
+### 5-3. 승인 직후 할 일
 
-만든 뒤 **아래 세 가지를 저에게 보내 주세요.** 제가 코드에 넣겠습니다.
+1. 랜딩 페이지 설치 버튼을 실제 스토어 주소로 교체. 지금은 깃허브 저장소로 연결돼 있고, "The Chrome Web Store listing is in review" 문구도 지워야 합니다
+2. 게시 버튼 누르기
+3. 같은 날 `LAUNCH.md` 의 홍보 글 올리기
 
-- 체크아웃 링크 (Share 버튼에서 복사, headrule.lemonsqueezy.com/buy/... 형태)
-- Store ID (Settings → Stores)
-- Product ID (상품 목록 URL 끝의 숫자)
+### 5-4. 1.0.1에서 고칠 것 (승인 후)
 
-주의: 스토어 활성화 승인 전에 만든 상품은 테스트 모드 것이라 승인 후 Copy to Live Mode로 옮겨야 하고, 그때 ID가 새로 생깁니다. 저에게는 승인 뒤 라이브 모드 값을 보내 주세요.
+두 가지를 한 번에 올립니다. 지금 고치면 심사를 처음부터 다시 받아야 해서 미뤄둔 항목입니다.
 
-### 3. 크롬 웹스토어에 첫 업로드 (약 40분, 심사 며칠)
+**가져오기를 무료로 풀기.** 지금 `config.js` 의 `allowImportExport: false` 때문에 무료 사용자는 ModHeader 파일을 가져올 수 없습니다. 우리 유입 전략 전체가 "ModHeader 쓰던 사람 데려오기"인데 그 길목에 결제창이 서 있는 셈입니다. Pro에는 프로필 무제한, 정규식 필터, 동기화가 남으므로 충분합니다.
 
-첫 업로드만 손으로 하고 그 뒤부터는 자동입니다.
+**호스트 권한 방식 바꾸기.** `declarativeNetRequestWithHostAccess` 로 바꾸면 설치 화면에 "모든 사이트의 데이터를 읽고 변경" 경고가 안 뜹니다. 대신 첫 규칙을 만들 때 권한을 요청하는 방식이 됩니다. 설치 문턱이 낮아지고 이후 심사도 빨라집니다.
 
-1. 웹스토어 대시보드 → New item → `dist/headrule-1.0.0.zip` 업로드. (zip이 없으면 프로젝트 폴더에서 `npm run zip`)
-2. Store listing 탭: `store/listing.md` 내용을 그대로 붙여넣기. 아이콘 `store/store-icon-128.png`, 스크린샷 `store/screenshot-1~3-1280x800.png`, 프로모 타일 `store/promo-small-440x280.png`.
-3. Privacy practices 탭: `listing.md` 아래쪽 문안 그대로. 개인정보처리방침 URL은 `https://yemoyang9-a11y.github.io/headrule/privacy.html`
-4. Distribution 탭: Public, 모든 지역, Free.
-5. Submit for review. 모든 사이트 접근 권한 때문에 보통 며칠 걸립니다. 반려되면 이유가 메일로 오는데 거의 항상 권한 사유 설명이 부족하다는 내용이라, 문안을 더 자세히 쓰고 재제출하면 됩니다.
-6. 승인되면 32자리 확장 ID가 생깁니다. 그것도 저에게 보내 주시면 랜딩 페이지 설치 버튼에 연결하겠습니다.
+### 5-5. 검색 유입용 페이지 만들기 (심사와 무관, 지금 가능)
 
-### 4. 자동 배포 연결 (한 번만, 약 30분)
+`/modheader-alternative` 페이지가 아직 없습니다. 우리 핵심 검색어가 "ModHeader alternative"인데 그 주제만 다루는 독립 페이지가 없으면 검색에서 밀립니다. 지금 메인 페이지 안의 `#modheader` 섹션만으로는 부족합니다.
 
-이걸 해 두면 다음부터는 명령 세 줄로 심사 제출까지 끝납니다.
+### 5-6. 엣지 애드온 스토어 (크롬 승인 후)
 
-1. console.cloud.google.com 에서 새 프로젝트 생성.
-2. APIs & Services → Library → Chrome Web Store API → Enable.
-3. OAuth consent screen → External → 앱 이름 Headrule CI → 저장. 마지막에 반드시 Publish app(In production) 상태로 바꿉니다. Testing 상태면 토큰이 7일마다 만료돼 자동화가 끊깁니다.
-4. Credentials → Create credentials → OAuth client ID → Desktop app → Client ID와 secret 복사.
-5. 터미널에서 `npx chrome-webstore-upload-keys` 실행 후 안내대로 진행하면 Refresh token이 나옵니다.
-6. 저장소 Settings → Secrets and variables → Actions에 다섯 개 등록: CWS_EXTENSION_ID, CWS_PUBLISHER_ID, CWS_CLIENT_ID, CWS_CLIENT_SECRET, CWS_REFRESH_TOKEN
+ModHeader는 엣지에서도 같이 퇴출됐습니다. 코드는 그대로 돌아가고 제출 절차만 별도입니다. 크롬 승인 결과를 보고 같은 패키지로 내는 게 효율적입니다.
+
+### 5-7. 자동 배포 연결 (한 번만, 약 30분)
+
+이걸 해두면 다음 버전부터는 명령 몇 줄로 심사 제출까지 끝납니다.
+
+1. console.cloud.google.com에서 새 프로젝트 생성
+2. APIs & Services → Library → Chrome Web Store API → Enable
+3. OAuth consent screen → External → 앱 이름 Headrule CI → 저장. 마지막에 반드시 Publish app(In production)으로 바꿉니다
+4. Credentials → Create credentials → OAuth client ID → Desktop app
+5. `npx chrome-webstore-upload-keys` 실행해서 Refresh token 받기
+6. 저장소 Settings → Secrets and variables → Actions에 다섯 개 등록: `CWS_EXTENSION_ID`, `CWS_PUBLISHER_ID`, `CWS_CLIENT_ID`, `CWS_CLIENT_SECRET`, `CWS_REFRESH_TOKEN`
 
 이후 새 버전 배포는 이렇게만 하면 됩니다.
 
@@ -91,25 +163,35 @@ git tag v1.0.1
 git push && git push --tags
 ```
 
-### 5. 런칭 주 홍보 (3~5시간, 매출을 좌우하는 부분)
+### 5-8. 런칭 주 홍보 (3~5시간, 매출을 좌우하는 부분)
 
-조사에서 확인한 사실은 이렇습니다. 성공한 소규모 확장 프로그램은 거의 다 사람들이 이미 검색하는 이름을 차지했고, 첫 사용자는 개발자가 직접 커뮤니티에 올려서 만들었습니다. Headrule의 검색어는 "ModHeader alternative"입니다. 승인된 날부터 일주일 안에 순서대로 하세요. 글 초안은 제가 다 써 드립니다.
+성공한 소규모 확장 프로그램은 거의 다 사람들이 이미 검색하는 이름을 차지했고, 첫 사용자는 개발자가 직접 커뮤니티에 올려서 만들었습니다. 글 초안은 `LAUNCH.md` 에 전부 있습니다.
 
-1. Hacker News에 Show HN으로 올리기. 왜 만들었는지 세 문장, 데이터를 모으지 않는다는 점 강조.
-2. Reddit r/webdev, r/chrome_extensions, r/javascript. ModHeader 삭제를 다룬 기존 글 댓글에도 짧게 링크.
-3. Product Hunt 런칭. 화요일에서 목요일 사이, 미국 서부 시간 00:01에 등록.
-4. dev.to에 글 한 편. 제목은 "ModHeader was pulled from the store. Here is how to move your headers in 5 minutes." 이 글이 검색 유입을 오래 만들어 줍니다.
-5. 6개월 뒤 Product Hunt 재런칭.
+1. Hacker News에 Show HN
+2. Reddit r/webdev, r/chrome_extensions, r/javascript. ModHeader 삭제를 다룬 기존 글 댓글에도 짧게 링크
+3. Product Hunt. 화요일에서 목요일 사이, 미국 서부 시간 00:01 등록
+4. dev.to에 글 한 편
+5. 6개월 뒤 Product Hunt 재런칭
 
-## 이후 운영 (주 30분)
+ModHeader 이야기를 쓸 때는 사실 관계를 넘어서지 않도록 조심해야 합니다. 발견된 코드는 잠들어 있는 상태였고 실제로 데이터가 전송됐다는 증거는 보도되지 않았습니다. "퇴출당했다"와 "분석에서 수집 코드가 보고됐다"까지만 씁니다.
 
-지원 메일은 거의 안 옵니다. 오면 대부분 특정 헤더가 왜 안 바뀌냐는 질문인데, 팝업이 오류 이유를 규칙 아래에 빨간 글씨로 보여 주므로 그 스크린샷을 요청하면 해결됩니다. 답장 초안이 필요하면 메일 본문을 저에게 붙여 넣으세요.
+## 6. 아직 안 정한 것
 
-리뷰는 대시보드에서 주 1회 확인하고 별점 낮은 리뷰에는 짧게 답글을 답니다. 제목에 Manifest나 policy가 들어간 구글 메일은 무시하지 말고 저에게 가져오세요. 코드 수정이 필요한 경우입니다.
+**구글 결제 프로필 우편번호 정정**. 상세는 PRIVATE.md. 급하지 않음.
 
-세금은 레몬스퀴지가 각국 부가세를 대신 처리하지만 국내 종합소득세는 본인이 5월에 신고합니다. 정산 내역을 받아 두세요. 매출이 꾸준해지면 사업자등록이 필요한지 국세청 상담(126)이나 세무서에 한 번 물어보시는 게 좋습니다.
+---
 
-## 비용
+## 7. 이후 운영 (주 30분)
+
+지원 메일은 거의 안 옵니다. 오면 대부분 특정 헤더가 왜 안 바뀌냐는 질문인데, 팝업이 오류 이유를 규칙 아래에 빨간 글씨로 보여주므로 그 스크린샷을 요청하면 해결됩니다.
+
+리뷰는 대시보드에서 주 1회 확인하고 별점 낮은 리뷰에는 짧게 답글을 답니다. 제목에 Manifest나 policy가 들어간 구글 메일은 무시하면 안 됩니다. 코드 수정이 필요한 경우입니다.
+
+세금은 레몬스퀴지가 각국 부가세를 대신 처리하지만 국내 종합소득세는 본인이 5월에 신고합니다. 정산 내역을 받아 두세요. 매출이 꾸준해지면 사업자등록이 필요한지 국세청 상담(126)이나 세무서에 물어보는 게 좋습니다. 이건 세무 판단이라 AI가 대신 정해줄 수 없는 영역입니다.
+
+---
+
+## 8. 비용
 
 | 항목 | 금액 |
 |---|---|
@@ -119,12 +201,34 @@ git push && git push --tags
 | 서버 | 없음 |
 | 도메인 (선택) | 연 1~2만원 |
 
-## 2호, 3호로 넘어가기
+---
 
-저장소 구조를 그대로 복사해서 씁니다. 바꿀 것은 extension 폴더 안의 로직, lib/config.js의 이름과 ID, store/listing.md, site/index.html 문안, scripts/make_icons.py의 색과 글자입니다. 테스트와 배포 설정은 손대지 않고 그대로 재사용합니다.
+## 9. 솔직한 기대치
 
-2호 후보는 Linkclump 대체입니다. 드래그로 링크 여러 개를 한 번에 여는 도구로, 사용자 10만 명에 평점 4.62였는데 2026년 8월 29일에 스토어에서 삭제됐습니다. 3호 후보는 Marinara 대체(뽀모도로 타이머)로 사용자 9만 명, 평점 4.77이었습니다.
+크롬 확장의 70%는 사용자 100명을 못 넘기고, 인디 개발자가 월 100~500달러에 닿는 데 보통 6~12개월이 걸립니다. Headrule이 그보다 나은 출발점을 가진 이유는 세 가지입니다. 160만 명이 쓰던 제품의 빈자리를 노린다는 것, 개발자 고객은 도구에 돈을 쓴다는 것, 사이트 구조가 바뀌어도 깨지지 않아서 유지보수가 거의 없다는 것입니다.
 
-## 솔직한 기대치
+그래도 한 개에 걸지 않는 것이 핵심입니다.
 
-크롬 확장의 70%는 사용자 100명을 못 넘기고, 인디 개발자가 월 100~500달러에 닿는 데 보통 6~12개월이 걸립니다. Headrule이 그보다 나은 출발점을 가진 이유는 90만 명이 쓰던 제품의 빈자리를 노리고, 개발자 고객은 지불 의사가 있으며, 사이트 구조가 바뀌어도 깨지지 않아 유지보수가 거의 없다는 점입니다. 그래도 한 개에 걸지 말고 2호, 3호를 같은 파이프라인으로 이어 붙이는 것이 계획의 핵심입니다.
+---
+
+## 10. 2호, 3호
+
+저장소 구조를 그대로 복사해서 씁니다. 바꿀 것은 extension 폴더 안의 로직, `lib/config.js`의 이름과 ID, `store/listing.md`, `site/index.html` 문안, `scripts/make_icons.py`의 색과 글자입니다. 테스트와 배포 설정은 손대지 않고 그대로 재사용합니다.
+
+2호 후보는 Linkclump 대체입니다. 드래그로 링크 여러 개를 한 번에 여는 도구로, 사용자 10만 명에 평점 4.62였는데 2026년 8월 29일에 스토어에서 삭제됐습니다.
+
+3호 후보는 Marinara 대체입니다. 뽀모도로 타이머로 사용자 9만 명, 평점 4.77이었고 2026년 8월 31일에 삭제됐습니다.
+
+---
+
+## 11. 새 대화창에서 이어서 할 때
+
+Claude에게 이렇게 시작하면 됩니다.
+
+> 프로젝트 폴더는 C:\Users\yemoy\projects\headrule 이고, HANDOVER.md를 읽고 이어서 작업해줘.
+
+작업 환경에 대해 알아두면 좋은 것이 두 가지 있습니다.
+
+첫째, 클라우드 작업공간과 내 컴퓨터는 서로 다른 곳입니다. Claude가 파일을 고치면 내 컴퓨터 폴더로 옮겨주는 과정이 따로 필요합니다. 옮겼다고 해놓고 실제로는 안 옮겨간 적이 있었으니, 중요한 변경은 옮긴 뒤에 파일을 다시 읽어서 확인하는 게 안전합니다.
+
+둘째, 깃허브에 올리는 것(git push)은 직접 PowerShell에서 실행해야 합니다. 클라우드 쪽 저장소에는 깃허브 연결이 없습니다.

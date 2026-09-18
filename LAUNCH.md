@@ -29,7 +29,7 @@ Show HN: Headrule – A Chrome header modifier with no telemetry
 
 **URL**
 ```
-https://yemoyang9-a11y.github.io/headrule/
+https://headrule.com/
 ```
 
 **Text (첫 댓글로 바로 답니다)**

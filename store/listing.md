@@ -40,7 +40,7 @@ WORKS WITH
 Chrome, Edge, Brave, Arc and other Chromium browsers.
 
 SUPPORT
-yemoyang9@gmail.com · Privacy policy: https://yemoyang9-a11y.github.io/headrule/privacy.html
+support@headrule.com · Privacy policy: https://headrule.com/privacy.html
 
 Headrule is an independent project and is not affiliated with Google or with ModHeader.
 
@@ -51,19 +51,27 @@ Headrule is an independent project and is not affiliated with Google or with Mod
 ## Privacy practices tab
 
 **Single purpose description**
-Headrule lets the user define rules that add, modify or remove HTTP request and response headers for chosen URLs.
+Headrule has a single purpose: it lets the user define rules that add, modify or remove HTTP request and response headers for URLs the user chooses. Every part of the interface exists to create, scope, enable or disable those header rules. The extension does nothing else.
 
 **Permission justifications**
-- declarativeNetRequest: Required to modify request and response headers; this is the extension's only function.
-- storage: Saves the user's header rules and profiles locally (and in chrome.storage.sync when the user enables sync).
-- alarms: Schedules a weekly re-validation of the user's Pro license key.
-- Host permission (<all_urls>): A header rule with an empty URL filter must apply to every request the user makes. The extension does not read page content and has no content scripts.
 
-**Remote code**: No, I am not using remote code.
+declarativeNetRequest
+This is the API that performs the extension's only function. The header rules the user creates are converted into declarativeNetRequest dynamic rules so that Chrome's own network stack applies them. Without this permission the extension cannot modify any header and has no purpose.
 
-**Data usage**: Check none of the data-collection boxes. Certify all three statements (no sale, no unrelated use, no creditworthiness use).
+storage
+Stores the user's header rules, profiles and settings locally so they persist between browser sessions. chrome.storage.sync is used only when the user explicitly enables the sync option, to carry the same rules to their other Chrome devices. Nothing is sent to any server of ours.
 
-**Privacy policy URL**: https://yemoyang9-a11y.github.io/headrule/privacy.html
+alarms
+Schedules a weekly background re-validation of a paid Pro license key against the Lemon Squeezy license API. This is the only scheduled task in the extension and it runs at most once per week. Users who never buy Pro never trigger it.
+
+Host permission (<all_urls>)
+A header rule with an empty URL filter must apply to every request the user makes, so the extension needs the broad host permission in order to register such rules. The permission is used for one thing only: scoping declarativeNetRequest rules. Headrule has no content scripts, never injects code into pages, never reads page content, tab URLs or browsing history, and makes no network request of its own apart from the Pro license check.
+
+**Remote code**: Select "No, I am not using remote code." The extension ships every line of code it runs inside the package.
+
+**Data usage**: Check none of the data-collection categories, then certify all three statements (no sale to third parties, no use unrelated to the single purpose, no use to determine creditworthiness or for lending).
+
+**Privacy policy URL**: https://headrule.com/privacy.html
 
 ## Distribution
 Visibility: Public · Regions: All regions · Pricing: Free (Pro is sold outside the store via Lemon Squeezy; this is allowed as long as the listing says so)

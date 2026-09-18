@@ -5,15 +5,15 @@
 export const CONFIG = {
   productName: "Headrule",
   version: "1.0.0",
-  siteUrl: "https://yemoyang9-a11y.github.io/headrule",
-  buyUrl: "https://headrule.lemonsqueezy.com",
-  supportEmail: "yemoyang9@gmail.com",
+  siteUrl: "https://headrule.com",
+  buyUrl: "https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa",
+  supportEmail: "support@headrule.com",
   lemonSqueezy: {
     apiBase: "https://api.lemonsqueezy.com/v1/licenses",
-    // Set both to the numeric IDs shown in the Lemon Squeezy dashboard.
-    // Leave as 0 to skip the ownership check (useful during development).
-    storeId: 0,
-    productId: 0
+    // Numeric IDs from the Lemon Squeezy dashboard. A key only unlocks Pro
+    // if it was issued for this store and this product.
+    storeId: 473656,
+    productId: 1362488
   },
   // Free tier limits
   free: {
