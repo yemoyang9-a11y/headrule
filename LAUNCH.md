@@ -2,7 +2,7 @@
 
 크롬 웹스토어 승인이 난 다음에 쓰는 글들입니다. 승인 전에 올리면 설치 링크가 없어서 효과가 없습니다.
 
-아래 `[EXTENSION_URL]` 자리에는 승인 후 받는 웹스토어 주소를 넣으세요. 저에게 확장 ID를 주시면 제가 다 채워서 다시 드리겠습니다.
+웹스토어 주소는 2026-09-18 게시 후 채워 넣었습니다.
 
 ---
 
@@ -69,7 +69,7 @@ A few decisions I made deliberately, and I would like to hear if you disagree:
 - The paid tier is a one-time $9 license, not a subscription. Free gives you unlimited rules in one profile.
 - It imports ModHeader's JSON export, so if you still have your old export file your profiles carry over.
 
-Install: [EXTENSION_URL]
+Install: https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp
 Source: https://github.com/yemoyang9-a11y/headrule
 
 I am the developer. Happy to take feature requests, and if something does not work on a site you use I would like to know which one.
@@ -94,7 +94,7 @@ That left a gap, and it bothered me enough that I built a replacement. It is cal
 
 Free tier is unlimited rules in one profile. A one-time $9 license adds profiles, regex filters and import/export. No subscription, no account, no analytics.
 
-Install: [EXTENSION_URL]
+Install: https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp
 Source: https://github.com/yemoyang9-a11y/headrule
 
 Disclosure: I made it. Mostly I am curious how other people solved this in the meantime. Proxy? Editing the code? A different extension I missed?
@@ -109,7 +109,7 @@ Disclosure: I made it. Mostly I am curious how other people solved this in the m
 ```
 I ended up building one because I could not find a replacement I trusted. Headrule, Manifest V3, declarativeNetRequest only, no account and no analytics, source is public. Free tier covers unlimited rules. It also imports ModHeader's JSON export if you still have yours.
 
-[EXTENSION_URL]
+https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp
 
 Disclosure: I am the author.
 ```
@@ -198,7 +198,7 @@ If you never exported, your rules are gone and you will be retyping them. Sorry.
 
 ## The tool I built
 
-Full disclosure: after failing to find a replacement I trusted, I wrote one. It is called [Headrule]([EXTENSION_URL]) and the [source is public](https://github.com/yemoyang9-a11y/headrule).
+Full disclosure: after failing to find a replacement I trusted, I wrote one. It is called [Headrule](https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp) and the [source is public](https://github.com/yemoyang9-a11y/headrule).
 
 It does one thing. Add, set or remove request and response headers, scoped by URL. Rules apply from the next request after you type them, because they go straight into Chrome's own request engine.
 
