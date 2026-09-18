@@ -130,9 +130,13 @@ npm run bump 1.0.1   버전 올리기
 
 ### 5-4. 1.0.1에서 고칠 것 (승인 후)
 
-두 가지를 한 번에 올립니다. 지금 고치면 심사를 처음부터 다시 받아야 해서 미뤄둔 항목입니다.
+아래 항목을 한 번에 올립니다. 지금 고치면 심사를 처음부터 다시 받아야 해서 미뤄둔 항목입니다.
 
 **가져오기를 무료로 풀기.** 지금 `config.js` 의 `allowImportExport: false` 때문에 무료 사용자는 ModHeader 파일을 가져올 수 없습니다. 우리 유입 전략 전체가 "ModHeader 쓰던 사람 데려오기"인데 그 길목에 결제창이 서 있는 셈입니다. Pro에는 프로필 무제한, 정규식 필터, 동기화가 남으므로 충분합니다.
+
+**ModHeader URL 필터도 가져오기 (중요).** 지금 가져오기는 헤더 이름·값·켜짐 상태·메모만 옮기고 URL 필터는 버립니다. 그래서 스테이징 API에만 걸어 두던 Authorization 토큰 규칙이 가져온 뒤에는 모든 사이트로 나갑니다. 사이트 Switching 3단계에 "필터부터 다시 넣으라"고 경고를 넣어 두었지만, 코드로 막는 게 맞습니다. ModHeader 내보내기의 URL 필터를 Headrule 필터로 옮기고, 옮길 수 없는 규칙은 꺼진 상태로 가져오게 합니다. 고치면 사이트 Switching 3단계를 지웁니다.
+
+**"clean ModHeader alternative" 표현 빼기.** `manifest.json` 설명과 `store/listing.md` 에 "A clean ModHeader alternative"가 있습니다. "clean"은 상대가 더럽다는 뜻으로 읽힐 수 있어서 사이트에서는 이미 뺐습니다. 스토어 쪽은 1.0.1 때 "A ModHeader alternative"로 바꿉니다.
 
 **호스트 권한 방식 바꾸기.** `declarativeNetRequestWithHostAccess` 로 바꾸면 설치 화면에 "모든 사이트의 데이터를 읽고 변경" 경고가 안 뜹니다. 대신 첫 규칙을 만들 때 권한을 요청하는 방식이 됩니다. 설치 문턱이 낮아지고 이후 심사도 빨라집니다.
 

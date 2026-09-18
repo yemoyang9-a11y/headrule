@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Headrule – Modify HTTP request and response headers in Chrome (ModHeader alternative)</title>
-  <meta name="description" content="Headrule is a lightweight Chrome extension to add, set, or remove HTTP request and response headers per URL. No accounts, no tracking, no remote code. A clean ModHeader alternative with profiles and import." />
+  <meta name="description" content="Headrule is a lightweight Chrome extension to add, set, or remove HTTP request and response headers per URL. No accounts, no tracking, no remote code. A ModHeader alternative with profiles and import." />
   <link rel="canonical" href="https://headrule.com/" />
   <meta property="og:title" content="Headrule – Modify HTTP headers in Chrome" />
   <meta property="og:description" content="Set, append or remove request and response headers per URL. No accounts, no tracking. Import your ModHeader profiles." />
@@ -182,10 +182,11 @@
 
     <section id="modheader">
       <h2>Switching from ModHeader</h2>
-      <p class="sub">ModHeader was removed from the Chrome and Edge stores in July 2026, after a published analysis by Stripe OLT reported hidden data-collection code in the extension. Headrule is a clean, independently built replacement with no telemetry of any kind.</p>
+      <p class="sub">In July 2026 Google and Microsoft removed ModHeader from their extension stores after security researchers at Stripe OLT reported a dormant browsing-history collector in it. The researchers reported that the collector was switched off in the version they examined (<a href="https://stripeolt.com/knowledge-hub/threat-research/chrome-extension-hidden-data-exfiltration-900k-users/" target="_blank" rel="noopener">read the report</a>). Headrule is an independently built replacement with no telemetry of any kind.</p>
       <ol>
-        <li>If you still have ModHeader installed, open it and export your profiles as JSON. If it is already gone, your rules are unfortunately gone with it.</li>
-        <li>Install Headrule, open <strong>Options → Import profiles</strong>, and pick the file. Request and response headers, enabled states and comments carry over. (Import is a Pro feature; the free tier lets you recreate rules by hand.)</li>
+        <li>If ModHeader still opens in your browser, export your profiles as JSON. If it was uninstalled or no longer opens, its rules cannot be exported, so recreate them in Headrule by hand.</li>
+        <li>Install Headrule, open <strong>Options → Import profiles</strong>, and pick the file. Header names, values, enabled states and comments carry over for both request and response headers. (Import is a Pro feature; the free tier lets you recreate rules by hand.)</li>
+        <li><strong>Add your URL filters back.</strong> ModHeader's URL filters are not imported yet, so every imported rule starts out applying to all sites. Do this first for any rule that sends a token or a cookie.</li>
         <li>Pick the profile in the popup. Done.</li>
       </ol>
     </section>
