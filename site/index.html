@@ -175,7 +175,7 @@
         <tr><th>What Headrule does</th><th>Why, and how to check</th></tr>
         <tr><td>Asks for access to all sites</td><td>Chrome shows this as "read and change all your data on all websites". It is needed because a rule with an empty URL filter has to apply everywhere. Headrule uses it only to hand your rules to Chrome. The <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/manifest.json" target="_blank" rel="noopener">manifest</a> declares no content scripts and no webRequest permission, so Headrule never runs code inside the pages you visit.</td></tr>
         <tr><td>Talks to a server only for Pro</td><td>Activating a Pro key, and re-checking it once a week, sends the key and a device label to Lemon Squeezy's license API. That is the <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/lib/license.js#L12" target="_blank" rel="noopener">single fetch() in the codebase</a>. Free users send nothing.</td></tr>
-        <tr><td>Keeps your rules on your device</td><td>Rules live in Chrome's local extension storage. Headrule has no server and no database of its own.</td></tr>
+        <tr><td>Keeps your rules on your device</td><td>Rules live in Chrome's local extension storage. If you turn on Pro sync, they travel through your own Chrome account sync. Headrule has no server and no database of its own.</td></tr>
         <tr><td>Is made by one developer</td><td>Headrule is an independent project with its source on <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">GitHub</a>. Mail to <a href="mailto:support@headrule.com">support@headrule.com</a> reaches the developer who maintains it.</td></tr>
       </table>
     </section>
@@ -185,8 +185,7 @@
       <p class="sub">In July 2026 Google and Microsoft removed ModHeader from their extension stores after security researchers at Stripe OLT reported a dormant browsing-history collector in it. The researchers reported that the collector was switched off in the version they examined (<a href="https://stripeolt.com/knowledge-hub/threat-research/chrome-extension-hidden-data-exfiltration-900k-users/" target="_blank" rel="noopener">read the report</a>). Headrule is an independently built replacement with no telemetry of any kind.</p>
       <ol>
         <li>If ModHeader still opens in your browser, export your profiles as JSON. If it was uninstalled or no longer opens, its rules cannot be exported, so recreate them in Headrule by hand.</li>
-        <li>Install Headrule, open <strong>Options → Import profiles</strong>, and pick the file. Header names, values, enabled states and comments carry over for both request and response headers. (Import is a Pro feature; the free tier lets you recreate rules by hand.)</li>
-        <li><strong>Add your URL filters back.</strong> ModHeader's URL filters are not imported yet, so every imported rule starts out applying to all sites. Do this first for any rule that sends a token or a cookie.</li>
+        <li>Install Headrule, open <strong>Options → Import profiles</strong>, and pick the file. Import is free. Profile names, request and response headers, enabled states, comments and URL filters carry over. A rule whose ModHeader filter cannot be converted (for example an exclude filter) is imported switched off with a note, so nothing is sent where you did not intend.</li>
         <li>Pick the profile in the popup. Done.</li>
       </ol>
     </section>
@@ -226,6 +225,7 @@
             <li>URL and domain filters</li>
             <li>One profile</li>
             <li>Pause switch and keyboard shortcut</li>
+            <li>Import and export, including ModHeader files</li>
             <li>No account, no tracking</li>
           </ul>
           <a class="cta secondary" id="installLinkFree" href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Install free</a>
@@ -239,7 +239,7 @@
             <li>Everything in Free</li>
             <li>Unlimited profiles</li>
             <li>Regex URL filters</li>
-            <li>Import and export, including ModHeader files</li>
+            <li>Sync profiles through your own Chrome account</li>
             <li>Activate on up to 5 of your browsers</li>
           </ul>
           <a class="cta" id="buyLink" href="https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa" target="_blank" rel="noopener">Get Pro for $9</a>
@@ -253,13 +253,13 @@
       <details><summary>Does Headrule collect any data?</summary><p>No. There is no analytics, no crash reporting and no telemetry. The only outbound request is to the license server when you activate or re-check a Pro key, and it contains the key and a device label. Read the <a href="privacy.html">privacy policy</a>.</p></details>
       <details><summary>Is Pro a subscription?</summary><p>No. You pay $9 once and the key does not expire. It works on up to 5 of your browsers, and you can free a slot any time with <strong>Deactivate on this browser</strong> in Options.</p></details>
       <details><summary>Does it work in Edge, Brave or Arc?</summary><p>Yes. Any Chromium-based browser that installs extensions from the Chrome Web Store.</p></details>
-      <details><summary>What happens to my rules if I uninstall?</summary><p>They are deleted with the extension. With Pro you can export them to a JSON file first.</p></details>
+      <details><summary>What happens to my rules if I uninstall?</summary><p>They are deleted with the extension. Export them to a JSON file first, or turn on Pro sync to keep a copy in your Chrome account.</p></details>
       <details><summary>Firefox?</summary><p>Not yet. Firefox's header APIs differ; it is on the list if enough people ask.</p></details>
       <details><summary>How do I get support?</summary><p>Email <a href="mailto:support@headrule.com">support@headrule.com</a>. Include the rule that misbehaves and the URL it should match.</p></details>
     </section>
 
     <footer>
-      Headrule 1.0.0 · Updated September 2026 · An independent project, not affiliated with Google or with ModHeader · <a href="privacy.html">Privacy policy</a> · <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Source on GitHub</a> · <a href="mailto:support@headrule.com">Support</a>
+      Headrule 1.0.1 · Updated September 2026 · An independent project, not affiliated with Google or with ModHeader · <a href="privacy.html">Privacy policy</a> · <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Source on GitHub</a> · <a href="mailto:support@headrule.com">Support</a>
     </footer>
   </div>
 </body>
