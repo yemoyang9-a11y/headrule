@@ -138,7 +138,7 @@
 
     <section class="hero" style="border-top:0">
       <div>
-        <p class="eyebrow">A ModHeader alternative, built for Manifest V3</p>
+        <p class="eyebrow">A ModHeader alternative for Chrome</p>
         <h1>Modify HTTP headers in Chrome. Nothing else.</h1>
         <p class="lead">Set, add or remove any request or response header, for any URL. No account, no analytics, and no code running inside your pages.</p>
         <div class="cta-row">
@@ -163,7 +163,7 @@
         <div class="card"><h3>Scope rules to URLs</h3><p>Leave the filter empty for everywhere, use <code>||api.example.com</code> for one domain, or a regular expression when you need precision.</p></div>
         <div class="card"><h3>Live on the next request</h3><p>Rules go straight to Chrome's built-in request engine as you type. Nothing to restart, and no background script watching your traffic.</p></div>
         <div class="card"><h3>Profiles</h3><p>Staging, production, client A, CORS debugging. Switch with one click. The toolbar badge shows how many rules are live.</p></div>
-        <div class="card"><h3>One switch to pause</h3><p>Flip the toggle or press <code>Alt+Shift+H</code> and every rule is removed until you turn it back on.</p></div>
+        <div class="card"><h3>One switch to pause</h3><p>Flip the toggle or press <code>Alt+Shift+H</code> (<code>Option+Shift+H</code> on a Mac) and every rule is removed until you turn it back on.</p></div>
         <div class="card"><h3>Nothing phones home</h3><p>No analytics, no crash reports, no remote code. The only request Headrule can make is the Pro license check. The source is public, so you can confirm that yourself.</p></div>
       </div>
     </section>
@@ -175,8 +175,8 @@
         <tr><th>What Headrule does</th><th>Why, and how to check</th></tr>
         <tr><td>Asks for access to all sites</td><td>Chrome shows this as "read and change all your data on all websites". It is needed because a rule with an empty URL filter has to apply everywhere. Headrule uses it only to hand your rules to Chrome. The <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/manifest.json" target="_blank" rel="noopener">manifest</a> declares no content scripts and no webRequest permission, so Headrule never runs code inside the pages you visit.</td></tr>
         <tr><td>Talks to a server only for Pro</td><td>Activating a Pro key, and re-checking it once a week, sends the key and a device label to Lemon Squeezy's license API. That is the <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/lib/license.js#L12" target="_blank" rel="noopener">single fetch() in the codebase</a>. Free users send nothing.</td></tr>
-        <tr><td>Keeps your rules on your device</td><td>Rules live in Chrome's local extension storage. Pro sync goes through your own Chrome account. Headrule has no server and no database of its own.</td></tr>
-        <tr><td>Is made by one developer</td><td>Headrule is an independent project with its source on <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">GitHub</a>. Mail to <a href="mailto:support@headrule.com">support@headrule.com</a> reaches the person who wrote the code.</td></tr>
+        <tr><td>Keeps your rules on your device</td><td>Rules live in Chrome's local extension storage. Headrule has no server and no database of its own.</td></tr>
+        <tr><td>Is made by one developer</td><td>Headrule is an independent project with its source on <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">GitHub</a>. Mail to <a href="mailto:support@headrule.com">support@headrule.com</a> reaches the developer who maintains it.</td></tr>
       </table>
     </section>
 
@@ -204,13 +204,13 @@
         <tr><td><code>|https://localhost:3000</code></td><td>URLs starting with that prefix</td></tr>
         <tr><td><code>regex:^https://api\.(dev|staging)\.example\.com/</code></td><td>Regular expression (Pro)</td></tr>
       </table>
-      <p>Filters are case-insensitive and use Chrome's <a href="https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest#filter-matching-charactgers" rel="noopener">declarativeNetRequest urlFilter</a> rules.</p>
+      <p>Filters are case-insensitive and use Chrome's <a href="https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest" rel="noopener">declarativeNetRequest urlFilter</a> rules.</p>
       <h3>Why does "Append" fail on my request header?</h3>
       <p>Chrome only allows appending to a short list of request headers (Accept, Accept-Language, Cache-Control, Cookie, User-Agent, X-Forwarded-For and a few others). For everything else use <strong>Set</strong>. Response headers can be appended freely.</p>
       <h3>Two rules touch the same header</h3>
       <p>The rule higher in the list wins. Drag is not supported yet; delete and re-add to reorder.</p>
-      <h3>Some headers cannot be changed</h3>
-      <p>Chrome refuses to modify a few headers for security reasons (for example <code>Host</code> and headers set by other extensions with higher priority). Headrule shows the exact error under the rule.</p>
+      <h3>A rule looks right but the header does not change</h3>
+      <p>Another extension is probably changing the same header. Chrome evaluates rules from the most recently installed extension first, so pause or remove the other header extension. Rules Chrome rejects outright, such as an invalid header name, show the exact error under the rule.</p>
       <p>Why Headrule needs access to all sites is explained under <a href="#trust">Check it</a>.</p>
     </section>
 
@@ -240,7 +240,6 @@
             <li>Unlimited profiles</li>
             <li>Regex URL filters</li>
             <li>Import and export, including ModHeader files</li>
-            <li>Sync profiles through your Chrome account</li>
             <li>Activate on up to 5 of your browsers</li>
           </ul>
           <a class="cta" id="buyLink" href="https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa" target="_blank" rel="noopener">Get Pro for $9</a>
@@ -254,7 +253,7 @@
       <details><summary>Does Headrule collect any data?</summary><p>No. There is no analytics, no crash reporting and no telemetry. The only outbound request is to the license server when you activate or re-check a Pro key, and it contains the key and a device label. Read the <a href="privacy.html">privacy policy</a>.</p></details>
       <details><summary>Is Pro a subscription?</summary><p>No. You pay $9 once and the key does not expire. It works on up to 5 of your browsers, and you can free a slot any time with <strong>Deactivate on this browser</strong> in Options.</p></details>
       <details><summary>Does it work in Edge, Brave or Arc?</summary><p>Yes. Any Chromium-based browser that installs extensions from the Chrome Web Store.</p></details>
-      <details><summary>What happens to my rules if I uninstall?</summary><p>They are deleted with the extension, unless you exported them or have Pro sync on. Export first.</p></details>
+      <details><summary>What happens to my rules if I uninstall?</summary><p>They are deleted with the extension. With Pro you can export them to a JSON file first.</p></details>
       <details><summary>Firefox?</summary><p>Not yet. Firefox's header APIs differ; it is on the list if enough people ask.</p></details>
       <details><summary>How do I get support?</summary><p>Email <a href="mailto:support@headrule.com">support@headrule.com</a>. Include the rule that misbehaves and the URL it should match.</p></details>
     </section>

@@ -38,7 +38,7 @@ I built this after ModHeader was pulled from the Chrome and Edge stores in July.
 
 Headrule does one thing: add, set or remove HTTP request and response headers, scoped to a URL or domain. It is built on declarativeNetRequest, so it has no content scripts and cannot read page content. There is no account, no analytics and no remote code. The only network call it ever makes is a license check, and only if you buy the paid tier.
 
-Free covers unlimited rules in one profile. A one-time $9 license adds multiple profiles, regex URL filters, import/export (including ModHeader's JSON export) and sync. No subscription.
+Free covers unlimited rules in one profile. A one-time $9 license adds multiple profiles, regex URL filters and import/export (including ModHeader's JSON export). No subscription.
 
 Source is public: https://github.com/yemoyang9-a11y/headrule
 
@@ -137,7 +137,7 @@ Headrule adds, sets or removes HTTP request and response headers for any URL, di
 It runs on Chrome's declarativeNetRequest API, so it has no content scripts and cannot read page content. No account, no analytics, no remote code. The source is public.
 
 Free: unlimited request and response rules, URL filters, one profile.
-Pro: $9 once, no subscription. Unlimited profiles, regex filters, import/export including ModHeader files, and sync.
+Pro: $9 once, no subscription. Unlimited profiles, regex filters, and import/export including ModHeader files.
 ```
 
 **Maker's first comment**
@@ -184,7 +184,7 @@ That is a real security improvement, and it is also why a header tool written to
 
 Whatever you pick, check three things before you install it.
 
-**Does it need an account?** A header modifier has no reason to know who you are. If it asks you to sign in, ask yourself what it is syncing and where.
+**Does it need an account?** A header modifier has no reason to know who you are. If it asks you to sign in, check what it stores and where.
 
 **What permissions does it request?** A declarativeNetRequest-based tool needs `declarativeNetRequest`, `storage`, and host access. If it also asks for `webRequest`, `scripting`, or `tabs`, it is doing more than headers.
 
@@ -200,11 +200,11 @@ If you never exported, your rules are gone and you will be retyping them. Sorry.
 
 Full disclosure: after failing to find a replacement I trusted, I wrote one. It is called [Headrule]([EXTENSION_URL]) and the [source is public](https://github.com/yemoyang9-a11y/headrule).
 
-It does one thing. Add, set or remove request and response headers, scoped by URL. Rules apply the moment you type them, with no page reload, because they go straight into Chrome's own request engine.
+It does one thing. Add, set or remove request and response headers, scoped by URL. Rules apply from the next request after you type them, because they go straight into Chrome's own request engine.
 
 What it deliberately does not do: no account, no analytics, no crash reporting, no remote code, no content scripts. The only network request it makes on its own is a license check, and only if you buy the paid tier.
 
-Free covers unlimited rules with URL filters in one profile. Pro is nine dollars once, not a subscription, and adds multiple profiles, regex URL filters, import and export including ModHeader files, and sync across your Chrome devices.
+Free covers unlimited rules with URL filters in one profile. Pro is nine dollars once, not a subscription, and adds multiple profiles, regex URL filters, and import and export including ModHeader files.
 
 ## Things that will trip you up
 
@@ -212,11 +212,9 @@ A few Chrome rules that surprise people, regardless of which extension you use.
 
 **Append only works on a handful of request headers.** Chrome permits appending to `Accept`, `Accept-Language`, `Cache-Control`, `Cookie`, `User-Agent`, `X-Forwarded-For` and a few others. For anything else you have to use set. Response headers can be appended freely.
 
-**Some headers cannot be touched at all.** `Host` is the obvious one. Chrome refuses for security reasons.
+**Extensions can collide.** If two extensions both modify the same header, Chrome evaluates the most recently installed extension first and the other one can silently lose. If a rule is not applying, check whether something else is also modifying it.
 
-**Extensions can collide.** If two extensions both modify the same header, the one with higher priority wins and the other silently does nothing. If a rule is not applying, check whether something else is also modifying it.
-
-**Host permissions are all or nothing.** A rule with an empty URL filter has to apply everywhere, so the extension has to ask for access to all sites. Chrome's permission model does not offer a middle ground here. That is worth knowing when you evaluate the scary-looking install prompt.
+**The install prompt looks scary for a reason.** A rule with an empty URL filter has to apply everywhere, so most header tools ask for access to all sites up front. What matters is what the extension does with that access, so check for content scripts and extra permissions in its manifest.
 
 ## Closing
 
