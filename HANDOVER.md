@@ -123,7 +123,7 @@ git push
 
 ### 5-3. 승인 직후 할 일
 
-1. 랜딩 페이지 설치 버튼을 실제 스토어 주소로 교체. 지금은 깃허브 저장소로 연결돼 있고, "The Chrome Web Store listing is in review" 문구도 지워야 합니다
+1. 랜딩 페이지 설치 버튼 두 개(상단 `#installLink`, 가격표 Free 카드 `#installLinkFree`)를 실제 스토어 주소로 교체. 지금은 깃허브 저장소로 연결돼 있고, "The Chrome Web Store listing is in review" 문구도 지워야 합니다
 2. 게시 버튼 누르기
 3. 같은 날 `LAUNCH.md` 의 홍보 글 올리기
 

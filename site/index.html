@@ -68,6 +68,7 @@
     table { width: 100%; border-collapse: collapse; }
     th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
     th { font-size: 14px; color: var(--muted); font-weight: 600; }
+    td code { word-break: break-all; }
     .pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .price { font-size: 34px; font-weight: 700; margin: 6px 0 2px; }
     .price small { font-size: 14px; color: var(--muted); font-weight: 400; }
@@ -76,10 +77,39 @@
     summary { cursor: pointer; font-weight: 600; }
     details p { color: var(--muted); margin: 8px 0 4px; }
     footer { padding: 30px 0 50px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+    /* Pro card emphasis */
+    .pricing .card { display: flex; flex-direction: column; position: relative; }
+    .pricing .card .cta { margin-top: auto; align-self: flex-start; }
+    .card.pro { border: 2px solid var(--accent); box-shadow: 0 12px 32px rgba(31,111,235,.18); }
+    .card.pro .tag { position: absolute; top: -13px; right: 18px; background: var(--accent); color: var(--accent-fg); font-size: 12px; font-weight: 700; letter-spacing: .02em; padding: 3px 10px; border-radius: 999px; }
+    /* Hover and focus */
+    .cta, .card, nav a, details, summary, .brand img, .hero img.shot { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease, color .18s ease, filter .18s ease; }
+    nav a { position: relative; }
+    nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+    a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    @media (hover: hover) {
+      .cta:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 8px 22px rgba(31,111,235,.35); }
+      .cta:active { transform: translateY(0); box-shadow: none; }
+      .cta.secondary:hover { filter: none; border-color: var(--accent); color: var(--accent); background: rgba(56,139,253,.08); box-shadow: none; }
+      nav a:hover::after { transform: scaleX(1); }
+      .brand:hover img { transform: rotate(-6deg) scale(1.06); }
+      .grid .card:hover, .pricing .card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 12px 28px rgba(0,0,0,.14); }
+      .card.pro:hover { box-shadow: 0 16px 40px rgba(31,111,235,.30); }
+      .hero img.shot:hover { transform: translateY(-4px); box-shadow: 0 28px 60px rgba(0,0,0,.25); }
+      details:hover { border-color: var(--accent); }
+      summary:hover { color: var(--accent); }
+      tr:hover td { background: var(--bg2); }
+      a:hover { text-decoration-thickness: 2px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::after { transition: none !important; }
+      .cta:hover, .card:hover, .hero img.shot:hover, .brand:hover img { transform: none !important; }
+    }
     @media (max-width: 760px) {
       .hero { grid-template-columns: 1fr; padding-top: 30px; }
       .hero h1 { font-size: 32px; }
       .grid, .pricing { grid-template-columns: 1fr; }
+      .pricing { gap: 28px; }
       nav a { margin-left: 12px; }
     }
   </style>
@@ -168,8 +198,10 @@
             <li>Pause switch and keyboard shortcut</li>
             <li>No account, no tracking</li>
           </ul>
+          <a class="cta secondary" id="installLinkFree" href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Install free</a>
         </div>
-        <div class="card">
+        <div class="card pro">
+          <span class="tag">Pay once, keep forever</span>
           <h3>Pro</h3>
           <div class="price">$9 <small>one-time, forever</small></div>
           <ul class="feat">
@@ -180,7 +212,7 @@
             <li>Sync profiles across your Chrome devices</li>
             <li>Use on all your own browsers</li>
           </ul>
-          <a class="cta" id="buyLink" href="https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa" target="_blank" rel="noopener">Get Pro</a>
+          <a class="cta" id="buyLink" href="https://headrule.lemonsqueezy.com/checkout/buy/116bb731-2b75-4840-b39f-35e3b86c47fa" target="_blank" rel="noopener">Get Pro for $9</a>
         </div>
       </div>
     </section>
