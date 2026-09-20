@@ -38,7 +38,7 @@ I built this after ModHeader was pulled from the Chrome and Edge stores in July.
 
 Headrule does one thing: add, set or remove HTTP request and response headers, scoped to a URL or domain. It is built on declarativeNetRequest, so it has no content scripts and cannot read page content. There is no account, no analytics and no remote code. The only network call it ever makes is a license check, and only if you buy the paid tier.
 
-Free covers unlimited rules in one profile. A one-time $9 license adds multiple profiles, regex URL filters and import/export (including ModHeader's JSON export). No subscription.
+Free covers unlimited rules in one profile. Importing ModHeader's JSON export is free. A one-time $9 license adds multiple profiles, regex URL filters and sync through your own Chrome account. No subscription.
 
 Source is public: https://github.com/yemoyang9-a11y/headrule
 
@@ -137,7 +137,7 @@ Headrule adds, sets or removes HTTP request and response headers for any URL, di
 It runs on Chrome's declarativeNetRequest API, so it has no content scripts and cannot read page content. No account, no analytics, no remote code. The source is public.
 
 Free: unlimited request and response rules, URL filters, one profile.
-Pro: $9 once, no subscription. Unlimited profiles, regex filters, and import/export including ModHeader files.
+Pro: $9 once, no subscription. Unlimited profiles, regex filters, and sync through your own Chrome account. ModHeader import is free.
 ```
 
 **Maker's first comment**
@@ -204,7 +204,7 @@ It does one thing. Add, set or remove request and response headers, scoped by UR
 
 What it deliberately does not do: no account, no analytics, no crash reporting, no remote code, no content scripts. The only network request it makes on its own is a license check, and only if you buy the paid tier.
 
-Free covers unlimited rules with URL filters in one profile. Pro is nine dollars once, not a subscription, and adds multiple profiles, regex URL filters, and import and export including ModHeader files.
+Free covers unlimited rules with URL filters in one profile, plus import and export including ModHeader files. Pro is nine dollars once, not a subscription, and adds multiple profiles, regex URL filters, and sync through your own Chrome account.
 
 ## Things that will trip you up
 
