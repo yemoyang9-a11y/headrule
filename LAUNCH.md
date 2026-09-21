@@ -42,7 +42,7 @@ Free covers unlimited rules in one profile. Importing ModHeader's JSON export is
 
 Source is public: https://github.com/yemoyang9-a11y/headrule
 
-I would especially like feedback on the URL filter syntax and on which rich text editors break the import. Happy to answer anything.
+I would especially like feedback on the URL filter syntax, and if you have an old ModHeader export that does not import cleanly, I would like to see it. Happy to answer anything.
 ```
 
 ---
@@ -92,7 +92,7 @@ Adding an Authorization header to a staging API, faking a User-Agent, or patchin
 
 That left a gap, and it bothered me enough that I built a replacement. It is called Headrule. It is built on declarativeNetRequest, which means the rules are handed to Chrome's own request engine rather than being applied by a script watching your traffic. Practically, that means the extension has no content scripts and cannot read the pages you visit.
 
-Free tier is unlimited rules in one profile. A one-time $9 license adds profiles, regex filters and import/export. No subscription, no account, no analytics.
+Free tier is unlimited rules in one profile. Importing a ModHeader export is free too. A one-time $9 license adds unlimited profiles, regex filters and sync through your own Chrome account. No subscription, no account, no analytics.
 
 Install: https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp
 Source: https://github.com/yemoyang9-a11y/headrule
