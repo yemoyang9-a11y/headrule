@@ -81,7 +81,7 @@ for line in sub:
     d.text((LEFT, y), line, font=fs, fill=(178, 190, 208))
     y += ssize + 12
 
-label = "A clean ModHeader alternative"
+label = "Free ModHeader import. Pro $9 once."
 psize = 23
 while psize > 14:
     pf = ImageFont.truetype(FONT_B, psize)
