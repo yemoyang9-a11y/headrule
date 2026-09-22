@@ -162,7 +162,7 @@ npm run bump 1.0.1   버전 올리기
 
 ### 5-5. 검색 유입용 페이지 만들기 (심사와 무관, 지금 가능)
 
-2026-09-22 완료. `site/modheader-alternative/index.html` (주소 `headrule.com/modheader-alternative/`). 요약 박스 → 경위 → 대체품 확인 3가지 → 옮기기 3단계 → "ModHeader 파일에서 옮겨지는 것" 표 → FAQ 순서입니다. 같이 `site/sitemap.xml`, `site/robots.txt`를 새로 만들고 메인 페이지 `#modheader` 구역과 푸터에서 링크했습니다. 가져오기 화면 스크린샷(`site/modheader-alternative/import-profiles.png`)은 실제 확장 옵션 화면을 Playwright로 찍은 것입니다. 남은 것: Google Search Console에 사이트맵 제출(사람). 로컬에서 사이트를 확인할 때는 `.claude/launch.json` 의 `site` 서버(`http://localhost:8765`)로 엽니다(파일을 직접 열면 이미지가 안 보임, `lessons.md` 참고).
+2026-09-22 완료. `site/modheader-alternative/index.html` (주소 `headrule.com/modheader-alternative/`). 요약 박스 → 경위 → 대체품 확인 3가지 → 옮기기 3단계 → "ModHeader 파일에서 옮겨지는 것" 표 → FAQ 순서입니다. 같이 `site/sitemap.xml`, `site/robots.txt`를 새로 만들고 메인 페이지 `#modheader` 구역과 푸터에서 링크했습니다. 가져오기 화면 스크린샷(`site/modheader-alternative/import-profiles.png`)은 실제 확장 옵션 화면을 Playwright로 찍은 것입니다. Google Search Console 등록 완료(2026-09-22, 도메인 속성 `headrule.com`, yemoyang9@gmail.com). 사이트맵 `https://headrule.com/sitemap.xml` 제출, 새 페이지와 메인 페이지 색인 요청 완료. 제출 직후 사이트맵 상태는 "가져올 수 없음"이었으나 파일·Googlebot 접근은 정상인 것 확인함(새 속성에서 흔한 표시). 며칠 뒤에도 그대로면 삭제 후 재제출. 로컬에서 사이트를 확인할 때는 `.claude/launch.json` 의 `site` 서버(`http://localhost:8765`)로 엽니다(파일을 직접 열면 이미지가 안 보임, `lessons.md` 참고).
 
 ### 5-6. 엣지 애드온 스토어 (크롬 승인 후)
 
