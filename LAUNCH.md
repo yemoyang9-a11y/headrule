@@ -16,6 +16,22 @@
 
 **ModHeader 이야기를 할 때.** "악성코드였다", "정보를 훔쳤다" 같은 단정은 쓰지 마세요. 확인된 사실은 이렇습니다. 2026년 7월 구글과 마이크로소프트가 스토어에서 내렸고, Stripe OLT라는 보안업체가 확장 안에 숨겨진 데이터 수집 코드가 있다는 분석을 공개했습니다. 그 코드는 비활성 상태였고 실제로 데이터가 전송된 증거는 확인되지 않았다고 보도됐습니다. 아래 글들은 이 선을 지켜서 썼습니다. 남의 제품을 깎아내리는 대신 내 제품이 뭘 안 하는지를 말하는 쪽이 설득력도 더 큽니다.
 
+**겪지 않은 경험담은 쓰지 마세요.** 2026-09-22 에 "ModHeader를 매일 썼다", "써 본 대체품이 다 별로였다" 같은 문장을 초안에서 뺐습니다. HN·레딧은 작성자에게 바로 되묻는 곳이라 사실이 아닌 개인 이야기는 금방 드러납니다. 실제로 겪은 일이 있으면 그때 본인 말로 넣습니다. 사용자 수는 Stripe OLT 보고서의 "약 90만 명"을 씁니다(일부 기사의 160만 명은 출처가 다름).
+
+**일정 (2026-09-22 갱신).** HN·레딧 계정을 9/20~21에 새로 만들었기 때문에 링크 글은 한 주 미룹니다.
+
+| 언제 | 할 일 |
+|---|---|
+| 9/22~9/28 | 계정 키우기(링크 없이 댓글, 아래 0-1), AlternativeTo 등록(8번), dev.to 글(6번) |
+| 9/29(화) 또는 9/30(수) 밤 10시 | Show HN (1번) |
+| HN 다음 날 | r/chrome_extensions (2번), 저장해 둔 "ModHeader 대안" 글에 댓글 (4번) |
+| 그다음 주 | r/webdev (3번) |
+| 그 뒤 화~목 | Product Hunt (5번) |
+
+**0-1. 계정 키우기 (첫 주).** 하루 두세 개, 링크 없이. 레딧은 r/webdev, r/chrome_extensions, r/javascript 의 질문 글에 답하거나 경험을 나눕니다. 서브레딧마다 계정 나이·카르마 기준이 다르니 각 서브레딧의 Rules 를 먼저 봅니다. HN은 개발 도구·브라우저 이야기에 댓글을 답니다. 두 곳 모두 AI가 쓴 티가 나는 댓글을 싫어하므로, 하고 싶은 말을 한국어로 정리해 Claude에게 영어로 옮겨 달라고 하는 방식으로 씁니다. "ModHeader 대안" 질문 글은 이 주에는 저장만 합니다.
+
+**ModHeader 사실관계 원본.** Stripe OLT 보고서(2026-07-13 게시, 09-10 갱신): https://stripeolt.com/knowledge-hub/threat-research/chrome-extension-hidden-data-exfiltration-900k-users/ . 분석 버전 7.0.18, 방문 기록 업로드는 비어 있는 허용 목록 때문에 꺼져(dormant) 있었고, 보고서는 방문 기록 전송을 관찰하지 못했다고 씀. 설치·업데이트·삭제 때 제품·버전·브라우저 종류를 제3자 도메인으로 보낸 것은 보고서에 있음. 일부 경쟁사 블로그의 "방문 도메인을 몰래 보냈다"는 표현은 보고서보다 셉니다. 우리는 보고서 표현을 넘지 않습니다.
+
 ---
 
 ## 1. Hacker News (Show HN)
@@ -34,7 +50,7 @@ https://headrule.com/
 
 **Text (첫 댓글로 바로 답니다)**
 ```
-I built this after ModHeader was pulled from the Chrome and Edge stores in July. I used it every day for API work and suddenly had nothing, and the replacements I tried were either abandoned or wanted an account.
+I built this after ModHeader was pulled from the Chrome and Edge stores in July. The Stripe OLT report that preceded the removal counted about 900,000 users, and anyone whose profiles lived only in the extension lost them with it. I wanted a replacement whose behaviour you can verify rather than take on trust.
 
 Headrule does one thing: add, set or remove HTTP request and response headers, scoped to a URL or domain. It is built on declarativeNetRequest, so it has no content scripts and cannot read page content. There is no account, no analytics and no remote code. The only network call it ever makes is a license check, and only if you buy the paid tier.
 
@@ -58,7 +74,7 @@ I rebuilt a header modifier from scratch after ModHeader was pulled, with zero t
 
 **Body**
 ```
-When ModHeader disappeared from the store in July I went looking for a replacement and could not find one I trusted. Most of what is left is either unmaintained or asks you to sign in.
+When ModHeader disappeared from the store in July, a lot of people lost the tool they used to set request headers, and their saved profiles with it. I wanted a replacement small enough that you can check what it does yourself.
 
 So I wrote Headrule. It is a Manifest V3 extension that does one job: add, set or remove HTTP request and response headers, with a URL or domain filter per rule.
 
@@ -107,9 +123,9 @@ Disclosure: I made it. Mostly I am curious how other people solved this in the m
 레딧이나 HN에서 그런 질문 글을 찾아 답니다. 새 글보다 전환이 좋습니다. 짧게 씁니다.
 
 ```
-I ended up building one because I could not find a replacement I trusted. Headrule, Manifest V3, declarativeNetRequest only, no account and no analytics, source is public. Free tier covers unlimited rules. It also imports ModHeader's JSON export if you still have yours.
+I built one after ModHeader was removed. Headrule, Manifest V3, declarativeNetRequest only, no account and no analytics, source is public. Free tier covers unlimited rules. It also imports ModHeader's JSON export if you still have yours.
 
-https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp
+What carries over from a ModHeader export, and what to check in any replacement: https://headrule.com/modheader-alternative/
 
 Disclosure: I am the author.
 ```
@@ -142,7 +158,7 @@ Pro: $9 once, no subscription. Unlimited profiles, regex filters, and sync throu
 
 **Maker's first comment**
 ```
-Hi everyone. I am a solo developer and I built Headrule because the header extension I relied on every day was removed from the Chrome and Edge stores in July, after a security firm published an analysis of hidden data-collection code in it.
+Hi everyone. I am a solo developer and I built Headrule after ModHeader, a header extension with about 900,000 users, was removed from the Chrome and Edge stores in July, following a security firm's analysis of hidden data-collection code in it.
 
 I wanted a replacement I could actually verify, so I made the opposite tradeoffs: declarativeNetRequest instead of a request listener, no account, no analytics, no remote code, and the full source public so anyone can check.
 
@@ -168,7 +184,7 @@ ModHeader is gone. Here is how to move your header rules in five minutes
 ```markdown
 If you do API or frontend work in Chrome, at some point you needed to change a request header. Add an Authorization token to a staging environment. Pretend to be an iPhone. Patch a CORS header while developing against a local server. Chrome gives you no way to do any of that on its own, so most of us installed an extension.
 
-For a lot of people that extension was ModHeader. In July 2026 it was removed from both the Chrome Web Store and the Edge Add-ons store, after the UK security firm Stripe OLT published an analysis reporting hidden data-collection code inside it. Reporting at the time noted the collector was dormant and that no evidence emerged of data actually being transmitted, but the extension is gone either way, and if you had rules saved in it they went with it.
+For a lot of people that extension was ModHeader. In July 2026 it was removed from both the Chrome Web Store and the Edge Add-ons store, after the security firm Stripe OLT published [an analysis](https://stripeolt.com/knowledge-hub/threat-research/chrome-extension-hidden-data-exfiltration-900k-users/) reporting a browsing-history collector inside it. In the version they examined, the collector was switched off, and they did not observe history being uploaded. The extension is gone either way, and if you had rules saved in it they went with it.
 
 This post covers what changed, what your options are, and how to get your header rules working again.
 
@@ -192,13 +208,13 @@ Whatever you pick, check three things before you install it.
 
 ## Moving your rules
 
-If you still have ModHeader installed somewhere, or you exported your profiles at some point, you have a JSON file with your rules in it. That file is worth keeping. Several replacements can read it, including the one I built.
+If you still have ModHeader installed somewhere, or you exported your profiles at some point, you have a JSON file with your rules in it. That file is worth keeping. Several replacements can read it, including the one I built. I wrote up [exactly what carries over from a ModHeader export](https://headrule.com/modheader-alternative/#carries-over) and what gets switched off or skipped, so you know what to check after importing.
 
 If you never exported, your rules are gone and you will be retyping them. Sorry. Export early next time.
 
 ## The tool I built
 
-Full disclosure: after failing to find a replacement I trusted, I wrote one. It is called [Headrule](https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp) and the [source is public](https://github.com/yemoyang9-a11y/headrule).
+Full disclosure: I wrote one. It is called [Headrule](https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp) and the [source is public](https://github.com/yemoyang9-a11y/headrule).
 
 It does one thing. Add, set or remove request and response headers, scoped by URL. Rules apply from the next request after you type them, because they go straight into Chrome's own request engine.
 
@@ -230,3 +246,50 @@ The removal was a nuisance, but the underlying shift is good. A header tool buil
 부정적인 댓글이 달려도 방어하지 마세요. "좋은 지적입니다, 고치겠습니다" 한 줄이 논쟁보다 훨씬 낫습니다. 실제로 고칠 수 있는 건 저에게 가져오시면 됩니다.
 
 버그 제보가 오면 그대로 저에게 붙여 넣으세요. 고쳐서 새 버전을 올리는 건 명령 세 줄이면 끝납니다.
+
+---
+
+## 8. AlternativeTo 등록
+
+"무엇 대신 쓸 것"을 찾는 사람들이 보는 목록 사이트입니다. 2026-09-22 기준 ModHeader 대안 목록(https://alternativeto.net/software/modheader/)에 Requestly, OpenHeader, Header Override, Header Editor, Live HTTP Headers, VibeHeader가 있고 Headrule은 없습니다. 계정 나이 제한 없이 바로 등록할 수 있습니다.
+
+절차: alternativeto.net 에 로그인 → ModHeader 페이지의 **Add Alternatives**(또는 사이트 메뉴의 앱 추가) → Headrule을 새 앱으로 등록 → ModHeader의 대안으로 연결. 등록은 운영진 검토 후 보이기까지 시간이 걸릴 수 있습니다.
+
+**주의.** 저장소에 LICENSE 파일이 없어 오픈소스가 아니라 "소스 공개"입니다. 라이선스 항목에서 **Open Source를 고르지 말고** Proprietary(또는 Freemium만)로 둡니다. 가격은 Freemium.
+
+**Name**
+```
+Headrule
+```
+
+**Website**
+```
+https://headrule.com/
+```
+
+**Short description** (한 줄)
+```
+Chrome extension to add, set or remove HTTP request and response headers per URL. No account, no analytics. Imports ModHeader exports for free.
+```
+
+**Description**
+```
+Headrule modifies HTTP request and response headers for any URL, directly inside Chrome and other Chromium browsers. It is built for everyday API and frontend work: sending an Authorization token to a staging API, faking a User-Agent or Referer, toggling a feature-flag header, or adding CORS headers while developing locally.
+
+It runs on Chrome's declarativeNetRequest API, so rules are applied by the browser's own request engine. There are no content scripts, no account, no analytics and no remote code. The source is public on GitHub.
+
+Free: unlimited request and response header rules, URL and domain filters, one profile, pause switch, and import and export including ModHeader JSON files.
+Pro ($9 once, no subscription): unlimited profiles, regex URL filters, and sync through your own browser account.
+
+Switching from ModHeader: https://headrule.com/modheader-alternative/
+```
+
+**Platforms**: Google Chrome, Microsoft Edge(크롬 웹스토어로 설치), Brave, Vivaldi 등 Chromium 계열. 엣지 애드온 스토어에 올리기 전까지는 "Chrome Web Store 설치"로만 적습니다.
+
+**Tags**: `http-headers`, `developer-tools`, `chrome-extension`, `api-testing`, `request-headers`
+
+**Links**: Chrome Web Store https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp · Source https://github.com/yemoyang9-a11y/headrule
+
+**Screenshots**: `store/screenshot-1-1280x800.png`, `screenshot-2`, `screenshot-3`
+
+**Alternative to**: ModHeader (그리고 원하면 Requestly, Header Editor 에도 대안으로 연결)
