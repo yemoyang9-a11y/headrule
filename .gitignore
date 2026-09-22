@@ -6,3 +6,4 @@ store/raw-*.png
 # 개인 정보·개인 메모 (공개 저장소에 올리지 않음)
 PRIVATE.md
 AI*.md
+.superpowers/

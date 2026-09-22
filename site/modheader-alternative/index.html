@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ModHeader alternative for Chrome: what happened and how to move your rules | Headrule</title>
+  <meta name="description" content="ModHeader was removed from the Chrome and Edge stores in July 2026. What happened, what to check in a replacement, and how to import your ModHeader profiles into Headrule for free." />
+  <link rel="canonical" href="https://headrule.com/modheader-alternative/" />
+  <meta property="og:title" content="ModHeader alternative: what happened and how to move your rules" />
+  <meta property="og:description" content="ModHeader was removed from the Chrome and Edge stores in July 2026. Import your ModHeader profiles into Headrule for free. No account, no analytics." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://headrule.com/modheader-alternative/" />
+  <meta property="og:image" content="https://headrule.com/og.png" />
+  <link rel="icon" href="/icon-128.png" type="image/png" />
+  <style>
+    :root {
+      --bg: #ffffff; --bg2: #f6f8fa; --fg: #1f2328; --muted: #57606a; --border: #d0d7de;
+      --accent: #1f6feb; --accent-fg: #fff; --card: #ffffff; --code: #eef1f5;
+      --ok: #1a7f37; --off: #9a6700; --no: #cf222e;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
+        --accent: #388bfd; --accent-fg: #fff; --card: #161b22; --code: #1f2630;
+        --ok: #3fb950; --off: #d29922; --no: #f85149;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--fg); background: var(--bg); }
+    a { color: var(--accent); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header.top { display: flex; align-items: center; justify-content: space-between; max-width: 960px; margin: 0 auto; padding: 18px 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; color: var(--fg); }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; }
+    nav a { margin-left: 18px; text-decoration: none; color: var(--muted); font-size: 15px; }
+    nav a:hover { color: var(--fg); }
+    .eyebrow { display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(56,139,253,.10); border: 1px solid rgba(56,139,253,.35); padding: 3px 12px; border-radius: 999px; margin: 28px 0 14px; }
+    h1 { font-size: 38px; line-height: 1.15; margin: 0 0 18px; letter-spacing: -0.02em; }
+    h2 { font-size: 25px; margin: 44px 0 10px; letter-spacing: -0.01em; padding-top: 28px; border-top: 1px solid var(--border); }
+    p, li { color: var(--muted); }
+    p strong, li strong { color: var(--fg); }
+    .answer { background: var(--bg2); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 18px 20px; margin: 0 0 18px; }
+    .answer p { margin: 0 0 14px; color: var(--fg); font-size: 17px; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-fg); padding: 11px 18px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 15px; }
+    .cta.secondary { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .toc { font-size: 14px; color: var(--muted); margin: 0 0 8px; }
+    .toc a { margin-right: 14px; text-decoration: none; white-space: nowrap; }
+    ol.steps { padding-left: 22px; }
+    ol.steps li { margin-bottom: 10px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; background: var(--code); padding: 2px 6px; border-radius: 5px; color: var(--fg); }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 15px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+    th { font-size: 14px; font-weight: 600; color: var(--fg); }
+    td:first-child { color: var(--fg); font-weight: 600; width: 38%; }
+    .ok { color: var(--ok); font-weight: 600; } .off { color: var(--off); font-weight: 600; } .no { color: var(--no); font-weight: 600; }
+    .checks { list-style: none; padding: 0; }
+    .checks li { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; background: var(--card); }
+    .checks li strong { display: block; margin-bottom: 2px; }
+    details { border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; margin-bottom: 10px; background: var(--card); }
+    summary { cursor: pointer; font-weight: 600; }
+    details p { margin: 8px 0 4px; }
+    .final { text-align: center; margin: 48px 0 0; padding: 32px 20px; border: 2px solid var(--accent); border-radius: 14px; box-shadow: 0 12px 32px rgba(31,111,235,.15); }
+    .final h2 { border: 0; margin: 0 0 8px; padding: 0; }
+    .final .cta-row { justify-content: center; }
+    footer { padding: 30px 0 50px; margin-top: 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+    /* Hover and focus, same as the home page */
+    .cta, details, summary, nav a, .brand img { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease, color .18s ease, filter .18s ease; }
+    a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    @media (hover: hover) {
+      .cta:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 8px 22px rgba(31,111,235,.35); }
+      .cta:active { transform: translateY(0); box-shadow: none; }
+      .cta.secondary:hover { filter: none; border-color: var(--accent); color: var(--accent); background: rgba(56,139,253,.08); box-shadow: none; }
+      .brand:hover img { transform: rotate(-6deg) scale(1.06); }
+      details:hover { border-color: var(--accent); }
+      summary:hover { color: var(--accent); }
+      tr:hover td { background: var(--bg2); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::after { transition: none !important; }
+      .cta:hover, .brand:hover img { transform: none !important; }
+    }
+    @media (max-width: 760px) {
+      h1 { font-size: 30px; }
+      header.top { flex-direction: column; align-items: flex-start; gap: 6px; }
+      nav a { margin-left: 0; margin-right: 16px; }
+      td:first-child { width: 42%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/"><img src="/icon-128.png" alt="" /> Headrule</a>
+    <nav>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#help">Help</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <span class="eyebrow">Updated September 2026</span>
+    <h1>Looking for a ModHeader alternative? Here is what happened, and how to move your rules.</h1>
+
+    <div class="answer">
+      <p><strong>Short answer.</strong> ModHeader was removed from the Chrome Web Store and Edge Add-ons in July 2026. Headrule does the same core job, setting request and response headers per URL, and it imports your ModHeader export for free. No account, no analytics.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp" target="_blank" rel="noopener">Add to Chrome, it's free</a>
+        <a class="cta secondary" href="#move">Move my rules</a>
+      </div>
+    </div>
+
+    <p class="toc">On this page:
+      <a href="#what-happened">What happened</a>
+      <a href="#checklist">What to check</a>
+      <a href="#move">Move your rules</a>
+      <a href="#carries-over">What carries over</a>
+      <a href="#faq">FAQ</a>
+    </p>
+
+    <h2 id="what-happened">What happened to ModHeader</h2>
+    <p>In July 2026 Google and Microsoft removed ModHeader from their extension stores. Security researchers at Stripe OLT had published an analysis reporting a dormant browsing-history collector in the extension, and they reported that it was switched off in the version they examined (<a href="https://stripeolt.com/knowledge-hub/threat-research/chrome-extension-hidden-data-exfiltration-900k-users/" target="_blank" rel="noopener">read the report</a>).</p>
+    <p>If ModHeader was removed from your browser, its saved profiles went with it. If it is still installed and opens, you can export your profiles now and bring them over.</p>
+
+    <h2 id="checklist">What to check in any replacement</h2>
+    <p>A header extension sits next to every request you make. Whatever you pick, Headrule or not, check these three things first.</p>
+    <ul class="checks">
+      <li><strong>Does it need an account?</strong> Changing headers has nothing to do with who you are. If it asks you to sign in, find out what it stores and where.</li>
+      <li><strong>What permissions does it ask for?</strong> A tool built on Chrome's declarativeNetRequest needs that permission, storage, and site access. Extra permissions such as <code>webRequest</code>, <code>scripting</code> or <code>tabs</code> mean it can do more than headers.</li>
+      <li><strong>Can you read the source?</strong> You cannot check a minified bundle. You can check a public repository.</li>
+    </ul>
+    <p>How Headrule answers each one: no account; its <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/manifest.json" target="_blank" rel="noopener">manifest</a> has no content scripts and no <code>webRequest</code>; the <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">source is on GitHub</a>, and the <a href="https://github.com/yemoyang9-a11y/headrule/blob/main/extension/lib/license.js#L12" target="_blank" rel="noopener">only <code>fetch()</code> in it</a> is the Pro license check.</p>
+
+    <h2 id="move">Move your rules in three steps</h2>
+    <ol class="steps">
+      <li><strong>Export from ModHeader.</strong> If ModHeader still opens, use its export option to save your profiles as a JSON file.</li>
+      <li><strong>Install Headrule</strong> from the <a href="https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp" target="_blank" rel="noopener">Chrome Web Store</a>. It is free.</li>
+      <li><strong>Open Options → Import profiles</strong> and pick the file. Import is free. Then choose the profile in the popup.</li>
+    </ol>
+    <p><strong>No export file?</strong> Then the rules have to be typed in again. A URL filter like <code>||api.example.com</code> covers one domain and its subdomains. The <a href="/#help">filter cheat sheet</a> covers the rest.</p>
+
+    <h2 id="carries-over">What carries over from a ModHeader export</h2>
+    <table>
+      <tr><th>In your ModHeader file</th><th>In Headrule</th></tr>
+      <tr><td>Profile names</td><td><span class="ok">Imported</span></td></tr>
+      <tr><td>Request and response headers</td><td><span class="ok">Imported</span>, with their on/off state and comments</td></tr>
+      <tr><td>URL filters</td><td><span class="ok">Imported</span>. Common patterns become plain filters; other regular expressions stay as regex (Pro)</td></tr>
+      <tr><td>Exclude, tab, window, resource-type and time filters</td><td><span class="off">Imported switched off</span>, with a note, so nothing is sent where you did not intend</td></tr>
+      <tr><td>Cookie, Set-Cookie, CSP and URL replacement entries</td><td><span class="no">Skipped</span>. The import tells you how many</td></tr>
+    </table>
+
+    <h2 id="faq">Questions</h2>
+    <details><summary>ModHeader is gone from my browser. Can I get my rules back?</summary><p>Not from Chrome. When an extension is removed, Chrome deletes its storage too. If you exported a JSON file at any point, import that. Otherwise the rules need to be recreated.</p></details>
+    <details><summary>Is Headrule free?</summary><p>Yes. Free covers unlimited header rules, URL filters, one profile, and import and export including ModHeader files. Pro is $9 once, not a subscription, and adds unlimited profiles, regex URL filters and sync through your own Chrome account.</p></details>
+    <details><summary>Does it work in Edge, Brave or Arc?</summary><p>Yes. Any Chromium-based browser that installs from the Chrome Web Store.</p></details>
+    <details><summary>Why does Chrome say it can read and change data on all websites?</summary><p>A rule with an empty URL filter has to apply everywhere, so site access is needed. Headrule uses it only to hand your rules to Chrome's own request engine. It runs no code inside pages.</p></details>
+    <details><summary>Is Headrule related to ModHeader?</summary><p>No. It is an independent project by one developer, built after ModHeader was removed.</p></details>
+
+    <div class="final">
+      <h2>Get your headers working again</h2>
+      <p>Free to install. Import your ModHeader file in a minute.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://chromewebstore.google.com/detail/mclcmbfklofongahjpfioipdipbldipp" target="_blank" rel="noopener">Add to Chrome, it's free</a>
+        <a class="cta secondary" href="/#pricing">Pro: $9 once</a>
+      </div>
+    </div>
+
+    <footer>
+      Headrule 1.0.1 · An independent project, not affiliated with Google or with ModHeader · <a href="/">Home</a> · <a href="/privacy.html">Privacy policy</a> · <a href="https://github.com/yemoyang9-a11y/headrule" target="_blank" rel="noopener">Source on GitHub</a> · <a href="mailto:support@headrule.com">Support</a>
+    </footer>
+  </main>
+</body>
+</html>

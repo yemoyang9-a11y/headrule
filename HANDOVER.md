@@ -162,7 +162,7 @@ npm run bump 1.0.1   버전 올리기
 
 ### 5-5. 검색 유입용 페이지 만들기 (심사와 무관, 지금 가능)
 
-`/modheader-alternative` 페이지가 아직 없습니다. 우리 핵심 검색어가 "ModHeader alternative"인데 그 주제만 다루는 독립 페이지가 없으면 검색에서 밀립니다. 지금 메인 페이지 안의 `#modheader` 섹션만으로는 부족합니다.
+2026-09-22 완료. `site/modheader-alternative/index.html` (주소 `headrule.com/modheader-alternative/`). 요약 박스 → 경위 → 대체품 확인 3가지 → 옮기기 3단계 → "ModHeader 파일에서 옮겨지는 것" 표 → FAQ 순서입니다. 같이 `site/sitemap.xml`, `site/robots.txt`를 새로 만들고 메인 페이지 `#modheader` 구역과 푸터에서 링크했습니다. 남은 것: Google Search Console에 사이트맵 제출(사람), 가져오기 화면 스크린샷(Playwright 설치 필요, `npm install` 뒤 `npx playwright install chromium`).
 
 ### 5-6. 엣지 애드온 스토어 (크롬 승인 후)
 
@@ -216,7 +216,8 @@ ModHeader 이야기를 쓸 때는 사실 관계를 넘어서지 않도록 조심
 - 확장 코드에 `fetch(` 가 하나 더 생기면: 첫 화면 "the only fetch()"와 "Check it" 표 둘째 줄을 고친다. `license.js` 의 fetch 줄 번호가 바뀌면 링크의 `#L12` 도 고친다
 - 1.0.1에서 가져오기를 무료로 풀면: Switching 2단계의 "(Import is a Pro feature...)" 삭제, 가격표 Free 목록에 "Import ModHeader profiles" 추가, Pro 목록 문구 조정
 - 1.0.1에서 `declarativeNetRequestWithHostAccess` 로 바꾸면: "Check it" 표 첫 줄(모든 사이트 접근 경고 설명)을 새 권한 방식에 맞게 고친다
-- 새 버전을 낼 때마다: 푸터의 "Headrule 1.0.0 · Updated September 2026"을 고친다
+- 새 버전을 낼 때마다: 푸터의 "Headrule 1.0.0 · Updated September 2026"을 고친다 (`modheader-alternative/index.html` 푸터도)
+- `lib/storage.js` 의 ModHeader 가져오기 규칙(`MODHEADER_UNSUPPORTED_FILTERS`, `MODHEADER_UNSUPPORTED_ITEMS`)이 바뀌면: `modheader-alternative/index.html` 의 "What carries over" 표를 고친다. `license.js` fetch 줄 번호가 바뀌면 이 페이지의 `#L12` 링크도 고친다
 
 ## 6. 아직 안 정한 것
 
