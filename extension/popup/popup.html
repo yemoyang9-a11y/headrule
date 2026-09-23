@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="color-scheme" content="light dark" />
   <title>Headrule</title>
   <link rel="stylesheet" href="popup.css" />
 </head>
@@ -11,49 +12,70 @@
       <img src="../icons/icon32.png" width="20" height="20" alt="" />
       <span>Headrule</span>
     </div>
-    <div class="profile">
-      <select id="profileSelect" title="Active profile"></select>
-      <input type="text" id="profileNameInput" placeholder="Profile name" maxlength="40" hidden />
-      <button id="profileAdd" class="icon" title="New profile">+</button>
-      <button id="profileRename" class="icon" title="Rename profile">✎</button>
-      <button id="profileDelete" class="icon" title="Delete profile">🗑</button>
+    <div class="profile" role="group" aria-label="Profile">
+      <select id="profileSelect" title="Active profile" aria-label="Active profile"></select>
+      <input type="text" id="profileNameInput" placeholder="Profile name" maxlength="40" aria-label="Profile name" autocomplete="off" spellcheck="false" hidden />
+      <button id="profileAdd" class="icon" title="New profile" aria-label="New profile">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 3v10M3 8h10" /></svg>
+      </button>
+      <button id="profileRename" class="icon" title="Rename profile" aria-label="Rename profile">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z" /></svg>
+      </button>
+      <button id="profileDelete" class="icon" title="Delete profile" aria-label="Delete profile">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5" /></svg>
+      </button>
     </div>
     <label class="switch" title="Pause or resume all rules (Alt+Shift+H)">
-      <input type="checkbox" id="masterToggle" />
-      <span class="slider"></span>
+      <input type="checkbox" id="masterToggle" role="switch" aria-label="Apply rules" aria-keyshortcuts="Alt+Shift+H" />
+      <span class="slider" aria-hidden="true"></span>
     </label>
   </header>
 
   <div id="upsell" class="upsell" hidden>
     <span id="upsellText"></span>
-    <a id="upsellLink" href="#" target="_blank" rel="noopener">Get Pro</a>
-    <button id="upsellClose" class="icon" title="Dismiss">×</button>
+    <a id="upsellLink" href="#" target="_blank" rel="noopener">Get Pro<span class="sr-only"> (opens in a new tab)</span></a>
+    <button id="upsellClose" class="icon ghost" title="Dismiss" aria-label="Dismiss">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg>
+    </button>
   </div>
 
   <main>
-    <table class="rules">
+    <table class="rules" id="rulesTable">
+      <caption class="sr-only">Header rules in the active profile</caption>
       <thead>
         <tr>
-          <th class="c-on" title="Enabled"></th>
-          <th class="c-type">Type</th>
-          <th class="c-op">Action</th>
-          <th class="c-name">Header</th>
-          <th class="c-value">Value</th>
-          <th class="c-url" title="Leave empty for all URLs. Use ||example.com to match a domain, or regex:^https://api\. for a regular expression (Pro).">URL filter</th>
-          <th class="c-del"></th>
+          <th scope="col" class="c-on"><span class="sr-only">On</span></th>
+          <th scope="col" class="c-type">Type</th>
+          <th scope="col" class="c-op">Action</th>
+          <th scope="col" class="c-name">Header</th>
+          <th scope="col" class="c-value">Value</th>
+          <th scope="col" class="c-url" title="Leave empty for all URLs. Use ||example.com to match a domain, or regex:^https://api\. for a regular expression (Pro).">URL filter</th>
+          <th scope="col" class="c-del"><span class="sr-only">Delete</span></th>
         </tr>
       </thead>
       <tbody id="rulesBody"></tbody>
     </table>
-    <div id="empty" class="empty" hidden>No rules yet. Add one below.</div>
+    <div id="empty" class="empty" hidden>
+      <p class="empty-title">No rules in this profile yet</p>
+      <p class="empty-sub">Start from a common example, or add a blank rule below.</p>
+      <div class="presets" role="group" aria-label="Examples">
+        <button type="button" data-preset="auth">Authorization: Bearer …</button>
+        <button type="button" data-preset="ua">User-Agent: iPhone</button>
+        <button type="button" data-preset="cors">CORS: Allow-Origin *</button>
+      </div>
+    </div>
   </main>
 
   <footer class="bar">
-    <button id="addRule" class="primary">+ Add rule</button>
-    <span id="status" class="status"></span>
+    <button id="addRule" class="primary">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 3v10M3 8h10" /></svg>
+      Add rule
+    </button>
+    <span id="status" class="status" role="status" aria-live="polite"></span>
+    <button id="undoBtn" class="link" hidden>Undo</button>
     <span class="spacer"></span>
     <a href="#" id="openOptions">Options</a>
-    <a href="https://headrule.com/#help" target="_blank" rel="noopener" id="helpLink">Help</a>
+    <a href="https://headrule.com/#help" target="_blank" rel="noopener" id="helpLink">Help<span class="sr-only"> (opens in a new tab)</span></a>
   </footer>
 
   <datalist id="headerNames">
