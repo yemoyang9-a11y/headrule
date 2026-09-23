@@ -1,4 +1,4 @@
-// UI audit for the popup: axe-core (WCAG 2.2 AA) in light and dark mode,
+// UI audit for the popup and landing site: axe-core (WCAG 2.2 AA) in light and dark mode,
 // small click targets (WCAG 2.5.8, 24x24 px), and screenshots for review.
 //
 // Usage: node test/ui-audit.mjs [--out dir] [--strict]
@@ -8,6 +8,7 @@ import { AxeBuilder } from "@axe-core/playwright";
 import path from "node:path";
 import fs from "node:fs";
 import os from "node:os";
+import http from "node:http";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -126,6 +127,32 @@ try {
   check(added.length === 1 && added[0].type === "response" && added[0].name === "Access-Control-Allow-Origin" && added[0].value === "*", "CORS example adds a response rule");
   check(await page.evaluate(() => document.activeElement?.dataset.f === "urlFilter"), "focus lands on the field to edit next");
   await page.close();
+  // Landing site (site/): axe on each page in light and dark.
+  const SITE = path.join(ROOT, "site");
+  const TYPES = { ".html": "text/html", ".png": "image/png", ".webp": "image/webp", ".xml": "application/xml", ".txt": "text/plain" };
+  const server = http.createServer((req, res) => {
+    let f = path.join(SITE, decodeURIComponent(new URL(req.url, "http://x").pathname));
+    if (!f.startsWith(SITE)) { res.statusCode = 403; return res.end(); }
+    if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, "index.html");
+    if (!fs.existsSync(f)) { res.statusCode = 404; return res.end(); }
+    res.setHeader("Content-Type", TYPES[path.extname(f)] || "application/octet-stream");
+    fs.createReadStream(f).pipe(res);
+  });
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  const siteBase = `http://127.0.0.1:${server.address().port}`;
+  console.log("\n[site]");
+  for (const scheme of ["light", "dark"]) {
+    for (const p of ["/", "/modheader-alternative/", "/privacy.html"]) {
+      const page = await context.newPage();
+      await page.emulateMedia({ colorScheme: scheme });
+      await page.goto(siteBase + p);
+      const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
+      console.log(`  ${r.violations.length ? "FAIL" : "ok  "} - ${scheme} ${p}: ${r.violations.length} axe violations${r.violations.map((v) => ` ${v.id}`).join("")}`);
+      if (r.violations.length) failed = true;
+      await page.close();
+    }
+  }
+  server.close();
   console.log(`\nscreenshots: ${OUT}`);
 } finally {
   await context.close();

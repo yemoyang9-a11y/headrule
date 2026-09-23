@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
   <title>ModHeader alternative for Chrome: what happened and how to move your rules | Headrule</title>
   <meta name="description" content="ModHeader was removed from the Chrome and Edge stores in July 2026. What happened, what to check in a replacement, and how to import your ModHeader profiles into Headrule for free." />
   <link rel="canonical" href="https://headrule.com/modheader-alternative/" />
@@ -15,18 +18,18 @@
   <style>
     :root {
       --bg: #ffffff; --bg2: #f6f8fa; --fg: #1f2328; --muted: #57606a; --border: #d0d7de;
-      --accent: #1f6feb; --accent-fg: #fff; --card: #ffffff; --code: #eef1f5;
+      --accent: #0969da; --btn: #0969da; --accent-fg: #fff; --card: #ffffff; --code: #eef1f5;
       --ok: #1a7f37; --off: #9a6700; --no: #cf222e;
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0d1117; --bg2: #161b22; --fg: #e6edf3; --muted: #9da7b3; --border: #30363d;
-        --accent: #388bfd; --accent-fg: #fff; --card: #161b22; --code: #1f2630;
+        --accent: #4493f8; --btn: #1f6feb; --accent-fg: #fff; --card: #161b22; --code: #1f2630;
         --ok: #3fb950; --off: #d29922; --no: #f85149;
       }
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
     body { margin: 0; font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--fg); background: var(--bg); }
     a { color: var(--accent); }
     .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
@@ -42,7 +45,7 @@
     p strong, li strong { color: var(--fg); }
     .answer { background: var(--bg2); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 18px 20px; margin: 0 0 18px; }
     .answer p { margin: 0 0 14px; color: var(--fg); font-size: 17px; }
-    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-fg); padding: 11px 18px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 15px; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--btn); color: var(--accent-fg); padding: 11px 18px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 15px; }
     .cta.secondary { background: transparent; color: var(--fg); border: 1px solid var(--border); }
     .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
     .toc { font-size: 14px; color: var(--muted); margin: 0 0 8px; }
